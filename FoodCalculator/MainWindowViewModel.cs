@@ -1,17 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoodCalculator
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {
         public static Random random = new Random();
+        public static AddFoodWindow AddFoodWindow { get; set; } = new AddFoodWindow();
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged("FoodList"); } }
         private ObservableCollection<Food> _foodList = new ObservableCollection<Food>();
 
@@ -72,14 +71,14 @@ namespace FoodCalculator
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
         public RelayCommand CalcFoodCommand { get; set; }
+        public RelayCommand OpenAddFoodWindowCommand { get; set; }
         public MainWindowViewModel()
         {
-           
+            WeekOfFood = new List<(Food BreakFast, Food Lunch, Food LunchSalad, Food Dinner, Food DinnerSalad)>();
             CalcFoodCommand = new RelayCommand(obj =>
             {
-                if (Linker.ViewModels.Count > 0 )
+                if (Linker.ViewModels.Count > 0 && FoodList.Count == 0)
                 {
-                    WeekOfFood = new List<(Food BreakFast, Food Lunch, Food LunchSalad, Food Dinner, Food DinnerSalad)>();
                     FoodCalcer foodCalculator = Linker.ViewModels.First() as FoodCalcer;
                     FoodList = foodCalculator.FoodList;
                     List<Food> breakfastFood = new List<Food>();
@@ -88,55 +87,41 @@ namespace FoodCalculator
                     List<Food> soupFood = new List<Food>();
                     List<Food> saladFood = new List<Food>();
 
-                    Queue<Food> breakfastFoodQueue = new Queue<Food>();
-                    Queue<Food> garnishFoodQueue = new Queue<Food>();
-                    Queue<Food> mainFoodQueue = new Queue<Food>();
-                    Queue<Food> soupFoodQueue = new Queue<Food>();
-                    Queue<Food> saladFoodQueue = new Queue<Food>();
 
-                    List<Food> BreaksfastWeek = new List<Food>();
-                    List<Food> LunchtWeek = new List<Food>();
-                    List<Food> DinnerWeek = new List<Food>();
+                    BreakfastRationList = new ObservableCollection<string>();
+                    LunchRationList = new ObservableCollection<string>();
+                    DinnerRationList = new ObservableCollection<string>();
 
-                    if (breakfastFoodQueue.Count<1)
-                    {
-
-                    }
                     foreach (var element in FoodList)
                     {
                         if (element.Type == Food.FoodType.Eggs.ToString() || element.Type == Food.FoodType.KaWa.ToString())
                         {
-                            for (int i = 0; i < element.Modifier; i++)
-                                breakfastFood.Add(element);
+                            breakfastFood.Add(element);
                         }
                         else if (element.Type == Food.FoodType.Garnish.ToString())
                         {
-                            for (int i = 0; i < element.Modifier; i++)
-                                garnishFood.Add(element);
+                            garnishFood.Add(element);
                         }
                         else if (element.Type == Food.FoodType.Main.ToString())
                         {
-                            for (int i = 0; i < element.Modifier; i++)
-                                mainFood.Add(element);
+                            mainFood.Add(element);
                         }
                         else if (element.Type == Food.FoodType.Soup.ToString())
                         {
-                            for (int i = 0; i < element.Modifier; i++)
-                                soupFood.Add(element);
+                            soupFood.Add(element);
                         }
                         else if (element.Type == Food.FoodType.Salad.ToString())
                         {
-                            for (int i = 0; i < element.Modifier; i++)
-                                saladFood.Add(element);
+                            saladFood.Add(element);
                         }
                     }
-
                     {
                         for (int i = 0; i < 7; i++)
                         {
                             WeekOfFood.Add(new(ChoseFood(breakfastFood), ChoseFood(mainFood), ChoseFood(saladFood), ChoseFood(mainFood), ChoseFood(saladFood)));
                         }
                     }
+
                     Food ChoseFood(List<Food> f)
                     {
                         Random rnd = new Random();
@@ -177,9 +162,8 @@ namespace FoodCalculator
 
                 }
             });
-             OpenAddFoodWindowCommand = new RelayCommand(obj =>
+            OpenAddFoodWindowCommand = new RelayCommand(obj =>
             {
-
                 try
                 {
                     AddFoodWindow.Show();
