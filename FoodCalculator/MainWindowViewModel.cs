@@ -177,6 +177,24 @@ namespace FoodCalculator
 
                 }
             });
+             OpenAddFoodWindowCommand = new RelayCommand(obj =>
+            {
+
+                try
+                {
+                    AddFoodWindow.Show();
+                    AddFoodWindow.Focus();
+                }
+                catch
+                {
+                    AddFoodWindow = new AddFoodWindow();
+                    AddFoodWindow.Show();
+                }
+                finally
+                {
+
+                }
+            });
         }
     }
 }
