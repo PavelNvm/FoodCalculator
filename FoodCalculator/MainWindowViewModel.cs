@@ -98,10 +98,7 @@ namespace FoodCalculator
                     List<Food> LunchtWeek = new List<Food>();
                     List<Food> DinnerWeek = new List<Food>();
 
-                    if (breakfastFoodQueue.Count<1)
-                    {
-
-                    }
+                    
                     foreach (var element in FoodList)
                     {
                         if (element.Type == Food.FoodType.Eggs.ToString() || element.Type == Food.FoodType.KaWa.ToString())
@@ -142,7 +139,10 @@ namespace FoodCalculator
                         Random rnd = new Random();
                         return f[rnd.Next(f.Count())];
                     }
+                    void FillQueue(Queue<Food> queue, List<Food> food)
+                    {
 
+                    }
                     #region
                     try
                     {
