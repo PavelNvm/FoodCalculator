@@ -22,16 +22,9 @@ namespace FoodCalculator
     {
         public MainWindow()
         {
-            InitializeComponent();
-            Loaded += MainWindow_Loaded;
+            InitializeComponent();            
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
             DataContext = mainWindowViewModel;
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            AddFoodWindow addFoodWindow = new AddFoodWindow();
-            addFoodWindow.Show();
-        }
+        }        
     }
 }

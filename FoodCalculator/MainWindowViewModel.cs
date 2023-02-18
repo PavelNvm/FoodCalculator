@@ -11,6 +11,7 @@ namespace FoodCalculator
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {
+        public AddFoodWindow AddFoodWindow { get; set; } = new AddFoodWindow();
         public static Random random = new Random();
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged("FoodList"); } }
         private ObservableCollection<Food> _foodList = new ObservableCollection<Food>();
@@ -72,6 +73,7 @@ namespace FoodCalculator
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
         public RelayCommand CalcFoodCommand { get; set; }
+        public RelayCommand OpenAddFoodWindowCommand { get; set; }
         public MainWindowViewModel()
         {
            
