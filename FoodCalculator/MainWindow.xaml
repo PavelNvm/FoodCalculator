@@ -97,7 +97,7 @@
 
         </Grid>
 
-        <Button Grid.Column="4" Grid.Row="0" Content="Change Food List"/>
+         <Button Grid.Column="4" Grid.Row="0" Content="Change Food List" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=OpenAddFoodWindowCommand}"/>
         <Button Grid.Column="4" Grid.Row="1" Content="Calculate Food" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=CalcFoodCommand}"/>
         <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding MondayBreakfastRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding TuesdayBreakfastRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
