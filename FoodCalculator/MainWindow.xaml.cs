@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodCalculator.Statistic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +23,15 @@ namespace FoodCalculator
     {
         public MainWindow()
         {
-            InitializeComponent();            
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
-            DataContext = mainWindowViewModel;
-        }        
+            InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            StatisticViewModel statisticViewModel = new StatisticViewModel();
+            Statistic.StatisticView statisticView = new Statistic.StatisticView();
+            statisticView.Show();
+        }
     }
 }

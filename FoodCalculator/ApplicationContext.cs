@@ -10,6 +10,7 @@ namespace FoodCalculator
     internal class ApplicationContext : DbContext
     {
         public DbSet<Food> FoodList { get; set; } = null!;
+        //public DbSet<StatRecord> StatRecords { get; set; } = null!;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=FoodDataBase.db");
