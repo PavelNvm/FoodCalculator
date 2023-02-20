@@ -26,7 +26,7 @@ namespace FoodCalculator
         public RelayCommand PortionsIncrement { get; set; }
         public RelayCommand PortionsDecrement { get; set; }
         public RelayCommand Delete { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
@@ -53,7 +53,7 @@ namespace FoodCalculator
                 {
                     FoodList[i].Id--;
                 }
-                var a = DB.FoodList.Find(number);
+                var a = DB.FoodList.Find(number) ?? null!;
                 DB.FoodList.Remove(a);
                 DB.SaveChanges();
                 //FoodList.RemoveAt(number);
@@ -72,12 +72,12 @@ namespace FoodCalculator
             });
             NameInput = new RelayCommand(obj =>
             {
-                object[] strings = obj as object[];
+                object[] strings = obj as object[] ?? null!;
                 if (strings.Any(item => item == null || item.ToString() == ""))
                     return;
                 Food food = new Food();
-                food.Name = strings[0].ToString();
-                food.Type = (strings[1] as TextBlock).Text;
+                food.Name = strings[0].ToString() ?? "DefaultFood";
+                food.Type = ((TextBlock)strings[1]).Text;
                 int.TryParse(strings[2].ToString(), out int portionsInt);
                 food.Portions = portionsInt;
                 FoodList.Add(food);
@@ -106,7 +106,6 @@ namespace FoodCalculator
             DB.Database.EnsureCreated();
             DB.FoodList.Load();
             FoodList = DB.FoodList.Local.ToObservableCollection();
-
             //FoodList.Add(new Food("priva") { Type="Soup",Id=0});
         }
 
