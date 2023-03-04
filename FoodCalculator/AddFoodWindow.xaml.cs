@@ -22,8 +22,17 @@ namespace FoodCalculator
         public AddFoodWindow()
         {
             InitializeComponent();
+            Closed += AddFoodWindow_Closed;
             //FoodCalc foodCalc = new FoodCalc();
             //DataContext = foodCalc;
+        }
+
+        private void AddFoodWindow_Closed(object? sender, EventArgs e)
+        {
+            if (Application.Current.Windows.Count == 1)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }
