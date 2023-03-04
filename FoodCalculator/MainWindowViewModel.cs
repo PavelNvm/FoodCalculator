@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -81,6 +82,7 @@ namespace FoodCalculator
             {
                 if (Linker.ViewModels.Count > 0 )
                 {
+                    Week CurrentWeek = new Week();
                     WeekOfFood = new List<(Food BreakFast, Food Lunch, Food LunchSalad, Food Dinner, Food DinnerSalad)>();
                     FoodCalcer foodCalculator = (FoodCalcer)Linker.ViewModels.First();
                     FoodList = foodCalculator.FoodList;
@@ -89,12 +91,11 @@ namespace FoodCalculator
                     List<Food> mainFood = new List<Food>();
                     List<Food> soupFood = new List<Food>();
                     List<Food> saladFood = new List<Food>();
-
-                    Queue<Food> breakfastFoodQueue = new Queue<Food>();
-                    Queue<Food> garnishFoodQueue = new Queue<Food>();
-                    Queue<Food> mainFoodQueue = new Queue<Food>();
-                    Queue<Food> soupFoodQueue = new Queue<Food>();
-                    Queue<Food> saladFoodQueue = new Queue<Food>();
+                    List<Food> breakfastFoodQueue = new List<Food>();
+                    List<Food> garnishFoodQueue = new List<Food>();
+                    List<Food> mainFoodQueue = new List<Food>();
+                    List<Food> soupFoodQueue = new List<Food>();
+                    List<Food> saladFoodQueue = new List<Food>();
 
                     List<Food> BreaksfastWeek = new List<Food>();
                     List<Food> LunchtWeek = new List<Food>();
@@ -142,11 +143,25 @@ namespace FoodCalculator
                             Random rnd = new Random();
                             return f[rnd.Next(f.Count())];
                         }
-                        void FillQueue(Queue<Food> queue, List<Food> food)
+                        void FillQueue(List<Food> queue, List<Food> food)
                         {
-
-                        }
-                    }
+                            Random rnd = new Random();
+                            Food lastfood = food[rnd.Next(food.Count())];
+                            int portions = lastfood.Portions;
+                            while (queue.Count < 7)
+                            {
+                                while (portions > 0)
+                                {
+                                    queue.Add(lastfood);
+                                    portions--;
+                                }
+                                point:
+                                lastfood = food[rnd.Next(food.Count())];
+                                if (lastfood.Id == queue.Last().Id&&food.Count!=1)
+                                    goto point;
+                                portions = lastfood.Portions;
+                            }
+                         }    
                     catch { }
                     #region
                     try
@@ -175,7 +190,6 @@ namespace FoodCalculator
                     }
                     catch
                     {
-
                     }
                     #endregion
 
@@ -197,7 +211,6 @@ namespace FoodCalculator
                 }
                 finally
                 {
-
                 }
             });
         }
