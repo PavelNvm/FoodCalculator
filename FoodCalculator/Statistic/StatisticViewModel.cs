@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -24,21 +25,23 @@ namespace FoodCalculator.Statistic
 
         public StatisticViewModel() 
         {
+            StatisticContext DB = new StatisticContext(); 
             Statistic = new FCStatistic();
             TestCommand = new RelayCommand(obj =>
             {
                 //try
                 //{
                 var DataSet = ((FoodCalcer)(Linker.ViewModels.Where(item => item.GetType().Name == "FoodCalcer").FirstOrDefault())).FoodList;
-                    Statistic.StatDataList.Add(new StatRecord(DataSet.FirstOrDefault() ?? null!, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)));
-                    Statistic.StatDataList.Add(new StatRecord(DataSet.LastOrDefault() ?? null!, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute + 1, DateTime.Now.Second)));
+                    DB.StatRecords.Add(new StatRecord(DataSet.FirstOrDefault() ?? null!, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)));
+                    DB.StatRecords.Add(new StatRecord(DataSet.LastOrDefault() ?? null!, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute + 1, DateTime.Now.Second)));
+                DB.SaveChanges();
                 //}
                 //catch { }
             });
-            if (!Linker.ViewModels.Any(item => item.GetType() == this.GetType()))
-            {
-                Linker.ViewModels.Add(this);
-            }
+            Linker.ViewModels.Add(this);
+            DB.Database.EnsureCreated();
+            DB.StatRecords.Load();
+            Statistic.StatDataList = DB.StatRecords.Local.ToObservableCollection();
         }
     }
 }

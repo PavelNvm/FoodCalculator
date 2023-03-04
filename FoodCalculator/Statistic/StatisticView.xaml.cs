@@ -23,6 +23,15 @@ namespace FoodCalculator.Statistic
         {
             InitializeComponent();
             Loaded += StatisticView_Loaded;
+            Closed += StatisticView_Closed;
+        }
+
+        private void StatisticView_Closed(object? sender, EventArgs e)
+        {
+            if (Application.Current.Windows.Count == 1)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         private void StatisticView_Loaded(object sender, RoutedEventArgs e)
