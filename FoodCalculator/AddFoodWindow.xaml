@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:FoodCalculator"
         mc:Ignorable="d"
         Title="AddFoodWindow" Height="450" Width="1280">
+    <Window.DataContext>
+        <local:FoodCalcer></local:FoodCalcer>
+    </Window.DataContext>
     <Window.Resources>
         <local:FoodCalcer x:Key="FoodCalc"/>
         <local:PolyConverter x:Key="PBind"/>

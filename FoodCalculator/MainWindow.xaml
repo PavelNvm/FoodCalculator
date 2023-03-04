@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:FoodCalculator"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="White">
+    <Window.DataContext>
+        <local:MainWindowViewModel></local:MainWindowViewModel>
+    </Window.DataContext>
     <Window.Resources>
         <local:MainWindowViewModel x:Key="MainWindowViewModel">
         </local:MainWindowViewModel>

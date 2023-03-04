@@ -19,8 +19,8 @@ namespace FoodCalculator
             KaWa,
             Eggs
         }
-        public string Name { get; set; }
-        public string Type { get; set; }
+        public string Name { get; set; } = null!;
+        public string Type { get; set; } = null!;
         public int Portions { get { return portions; } set { if (value > 0) { portions = value; OnPropertyChanged("Portions"); } } }
         private int portions;
         public int Modifier { get { return modifier; } set { if (value >= 0) { modifier = value; OnPropertyChanged("Modifier"); } } }
@@ -36,7 +36,7 @@ namespace FoodCalculator
         }
         public Food()
         { modifier = 1; Portions = 1; }
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)

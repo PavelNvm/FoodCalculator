@@ -18,56 +18,56 @@ namespace FoodCalculator
         private ObservableCollection<Food> _foodList = new ObservableCollection<Food>();
 
         public ObservableCollection<string> BreakfastRationList { get { return _breakfastRationList; } set { if (value != null) { _breakfastRationList = value; OnPropertyChanged("BreakfastRationList"); } } }
-        private ObservableCollection<string> _breakfastRationList;
-        private List<(Food BreakFast, Food Lunch, Food LunchSalad, Food Dinner, Food DinnerSalad)> WeekOfFood;
+        private ObservableCollection<string> _breakfastRationList = null!;
+        private List<(Food BreakFast, Food Lunch, Food LunchSalad, Food Dinner, Food DinnerSalad)> WeekOfFood = null!;
         #region
-        private string _mondayBreakfastRation;
+        private string _mondayBreakfastRation = null!;
         public string MondayBreakfastRation { get { return _mondayBreakfastRation; } set { if (value != null) { _mondayBreakfastRation = value; OnPropertyChanged("MondayBreakfastRation"); } } }
-        public string _tuesdayBreakfastRation;
+        public string _tuesdayBreakfastRation = null!;
         public string TuesdayBreakfastRation { get { return _tuesdayBreakfastRation; } set { if (value != null) { _tuesdayBreakfastRation = value; OnPropertyChanged("TuesdayBreakfastRation"); } } }
-        private string _wednesdayBreakfastRation;
+        private string _wednesdayBreakfastRation = null!;
         public string WednesdayBreakfastRation { get { return _wednesdayBreakfastRation; } set { if (value != null) { _wednesdayBreakfastRation = value; OnPropertyChanged("WednesdayBreakfastRation"); } } }
-        private string _thursdayBreakfastRation;
+        private string _thursdayBreakfastRation = null!;
         public string ThursdayBreakfastRation { get { return _thursdayBreakfastRation; } set { if (value != null) { _thursdayBreakfastRation = value; OnPropertyChanged("ThursdayBreakfastRation"); } } }
-        private string _fridayBreakfastRation;
+        private string _fridayBreakfastRation = null!;
         public string FridayBreakfastRation { get { return _fridayBreakfastRation; } set { if (value != null) { _fridayBreakfastRation = value; OnPropertyChanged("FridayBreakfastRation"); } } }
-        private string _saturdayBreakfastRation;
+        private string _saturdayBreakfastRation = null!;
         public string SaturdayBreakfastRation { get { return _saturdayBreakfastRation; } set { if (value != null) { _saturdayBreakfastRation = value; OnPropertyChanged("SaturdayBreakfastRation"); } } }
-        private string _sundayBreakfastRation;
+        private string _sundayBreakfastRation = null!;
         public string SundayBreakfastRation { get { return _sundayBreakfastRation; } set { if (value != null) { _sundayBreakfastRation = value; OnPropertyChanged("SundayBreakfastRation"); } } }
-        private string _mondayLunchRation;
+        private string _mondayLunchRation = null!;
         public string MondayLunchRation { get { return _mondayLunchRation; } set { if (value != null) { _mondayLunchRation = value; OnPropertyChanged("MondayLunchRation"); } } }
-        private string _tuesdayLunchRation;
+        private string _tuesdayLunchRation = null!;
         public string TuesdayLunchRation { get { return _tuesdayLunchRation; } set { if (value != null) { _tuesdayLunchRation = value; OnPropertyChanged("TuesdayLunchRation"); } } }
-        private string _wednesdayLunchRation;
+        private string _wednesdayLunchRation = null!;
         public string WednesdayLunchRation { get { return _wednesdayLunchRation; } set { if (value != null) { _wednesdayLunchRation = value; OnPropertyChanged("WednesdayLunchRation"); } } }
-        private string _thursdayLunchRation;
+        private string _thursdayLunchRation = null!;
         public string ThursdayLunchRation { get { return _thursdayLunchRation; } set { if (value != null) { _thursdayLunchRation = value; OnPropertyChanged("ThursdayLunchRation"); } } }
-        private string _fridayLunchRation;
+        private string _fridayLunchRation = null!;
         public string FridayLunchRation { get { return _fridayLunchRation; } set { if (value != null) { _fridayLunchRation = value; OnPropertyChanged("FridayLunchRation"); } } }
-        private string _saturdayLunchRation;
+        private string _saturdayLunchRation = null!;
         public string SaturdayLunchRation { get { return _saturdayLunchRation; } set { if (value != null) { _saturdayLunchRation = value; OnPropertyChanged("SaturdayLunchRation"); } } }
-        private string _sundayLunchRation;
+        private string _sundayLunchRation = null!;
         public string SundayLunchRation { get { return _sundayLunchRation; } set { if (value != null) { _sundayLunchRation = value; OnPropertyChanged("SundayLunchRation"); } } }
-        private string _mondayDinnerRation;
+        private string _mondayDinnerRation = null!;
         public string MondayDinnerRation { get { return _mondayDinnerRation; } set { if (value != null) { _mondayDinnerRation = value; OnPropertyChanged("MondayDinnerRation"); } } }
-        private string _tuesdayDinnerRation;
+        private string _tuesdayDinnerRation = null!;
         public string TuesdayDinnerRation { get { return _tuesdayDinnerRation; } set { if (value != null) { _tuesdayDinnerRation = value; OnPropertyChanged("TuesdayDinnerRation"); } } }
-        private string _wednesdayDinnerRation;
+        private string _wednesdayDinnerRation = null!;
         public string WednesdayDinnerRation { get { return _wednesdayDinnerRation; } set { if (value != null) { _wednesdayDinnerRation = value; OnPropertyChanged("WednesdayDinnerRation"); } } }
-        private string _thursdayDinnerRation;
+        private string _thursdayDinnerRation = null!;
         public string ThursdayDinnerRation { get { return _thursdayDinnerRation; } set { if (value != null) { _thursdayDinnerRation = value; OnPropertyChanged("ThursdayDinnerRation"); } } }
-        private string _fridayDinnerRation;
+        private string _fridayDinnerRation = null!;
         public string FridayDinnerRation { get { return _fridayDinnerRation; } set { if (value != null) { _fridayDinnerRation = value; OnPropertyChanged("FridayDinnerRation"); } } }
-        private string _saturdayDinnerRation;
+        private string _saturdayDinnerRation = null!;
         public string SaturdayDinnerRation { get { return _saturdayDinnerRation; } set { if (value != null) { _saturdayDinnerRation = value; OnPropertyChanged("SaturdayDinnerRation"); } } }
-        private string _sundayDinnerRation;
+        private string _sundayDinnerRation = null!;
         public string SundayDinnerRation { get { return _sundayDinnerRation; } set { if (value != null) { _sundayDinnerRation = value; OnPropertyChanged("SundayDinnerRation"); } } }
         #endregion
 
         public ObservableCollection<string> DinnerRationList { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> LunchRationList { get; set; } = new ObservableCollection<string>();
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged = null!;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
@@ -84,7 +84,7 @@ namespace FoodCalculator
                 {
                     Week CurrentWeek = new Week();
                     WeekOfFood = new List<(Food BreakFast, Food Lunch, Food LunchSalad, Food Dinner, Food DinnerSalad)>();
-                    FoodCalcer foodCalculator = Linker.ViewModels.First() as FoodCalcer;
+                    FoodCalcer foodCalculator = (FoodCalcer)Linker.ViewModels.First();
                     FoodList = foodCalculator.FoodList;
                     List<Food> breakfastFood = new List<Food>();
                     List<Food> garnishFood = new List<Food>();
@@ -130,8 +130,9 @@ namespace FoodCalculator
                                 saladFood.Add(element);
                         }
                     }
-
+                    try
                     {
+                        {
                         for (int i = 0; i < 7; i++)
                         {
                             WeekOfFood.Add(new(ChoseFood(breakfastFood), ChoseFood(mainFood), ChoseFood(saladFood), ChoseFood(mainFood), ChoseFood(saladFood)));
@@ -160,8 +161,7 @@ namespace FoodCalculator
                                     goto point;
                                 portions = lastfood.Portions;
                             }
-                        }
-                    }
+                         }    
                     catch { }
                     #region
                     try
@@ -190,7 +190,6 @@ namespace FoodCalculator
                     }
                     catch
                     {
-
                     }
                     #endregion
 
@@ -212,7 +211,6 @@ namespace FoodCalculator
                 }
                 finally
                 {
-
                 }
             });
         }
