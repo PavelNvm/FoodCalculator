@@ -12,27 +12,31 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FoodCalculator
+namespace FoodCalculator.Statistic
 {
     /// <summary>
-    /// Interaction logic for AddFoodWindow.xaml
+    /// Логика взаимодействия для StatisticView.xaml
     /// </summary>
-    public partial class AddFoodWindow : Window
+    public partial class StatisticView : Window
     {
-        public AddFoodWindow()
+        public StatisticView()
         {
             InitializeComponent();
-            Closed += AddFoodWindow_Closed;
-            //FoodCalc foodCalc = new FoodCalc();
-            //DataContext = foodCalc;
+            Loaded += StatisticView_Loaded;
+            Closed += StatisticView_Closed;
         }
 
-        private void AddFoodWindow_Closed(object? sender, EventArgs e)
+        private void StatisticView_Closed(object? sender, EventArgs e)
         {
             if (Application.Current.Windows.Count == 1)
             {
                 Application.Current.Shutdown();
             }
+        }
+
+        private void StatisticView_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
