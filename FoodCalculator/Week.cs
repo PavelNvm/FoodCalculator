@@ -16,7 +16,7 @@ namespace FoodCalculator
         public void FillBreakfast(List<Food> foods)
         {
             Breakfasts = new List<Food>();
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 7||i<foods.Count; i++)
             {
                 Breakfasts.Add(foods[i]);
             }
@@ -33,6 +33,11 @@ namespace FoodCalculator
             {
                 Dinners.Add((main[i * 2 - 1], garn[i * 2 - 1], salorsoup[i * 2 - 1]));
             }
+        }
+        public bool IsFilled()
+        {
+            if (Breakfasts.Count == 7 && Lunches.Count == 7 && Dinners.Count == 7) { return true; }
+            return false;
         }
     }
 }
