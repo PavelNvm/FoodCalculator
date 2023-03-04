@@ -25,6 +25,15 @@ namespace FoodCalculator
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+            Closed += MainWindow_Closed;
+        }
+
+        private void MainWindow_Closed(object? sender, EventArgs e)
+        {
+            if(Application.Current.Windows.Count == 1)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)

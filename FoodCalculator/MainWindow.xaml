@@ -102,28 +102,28 @@
 
          <Button Grid.Column="4" Grid.Row="0" Content="Change Food List" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=OpenAddFoodWindowCommand}"/>
         <Button Grid.Column="4" Grid.Row="1" Content="Calculate Food" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=CalcFoodCommand}"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding MondayBreakfastRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding TuesdayBreakfastRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding WednesdayBreakfastRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding ThursdayBreakfastRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding FridayBreakfastRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding SaturdayBreakfastRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding SundayBreakfastRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[0].Breakfast.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[1].Breakfast.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[2].Breakfast.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[3].Breakfast.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[4].Breakfast.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[5].Breakfast.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[6].Breakfast.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-        <TextBox Grid.Row="1" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding MondayLunchRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding TuesdayLunchRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding WednesdayLunchRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding ThursdayLunchRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding FridayLunchRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding SaturdayLunchRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding SundayLunchRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[0].LunchWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[1].LunchWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[2].LunchWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[3].LunchWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[4].LunchWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[5].LunchWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="7" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[6].LunchWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-        <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding MondayDinnerRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding TuesdayDinnerRation, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding WednesdayDinnerRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ThursdayDinnerRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding FridayDinnerRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding SaturdayDinnerRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding SundayDinnerRation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[0].DinnerWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[1].DinnerWithSalad, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[2].DinnerWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[3].DinnerWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[4].DinnerWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[5].DinnerWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="7" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding WeekOfFood[6].DinnerWithSalad, UpdateSourceTrigger=PropertyChanged}"></TextBox>
     </Grid>
 </Window>

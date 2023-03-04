@@ -22,7 +22,6 @@ namespace FoodCalculator
         }
         public FCStatistic()
         {
-            StatDataList = new ObservableCollection<StatRecord>();
         }
     }
     public class StatRecord : INotifyPropertyChanged
@@ -56,6 +55,10 @@ namespace FoodCalculator
             Food = food.Name;
             FoodType = food.Type;
             DateTime = dateTime;
+        }
+        internal StatRecord()
+        {
+
         }
     }
 }
