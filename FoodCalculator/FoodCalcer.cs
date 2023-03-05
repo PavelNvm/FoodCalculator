@@ -34,7 +34,7 @@ namespace FoodCalculator
         }
         public FoodCalcer()
         {
-            FoodList.CollectionChanged += FoodList_CollectionChanged;
+            
             InputPortionQuantity = 1;
             FoodContext FoodDB = new FoodContext();
             
@@ -50,14 +50,10 @@ namespace FoodCalculator
             Delete = new RelayCommand(obj =>
             {
                 int.TryParse(obj.ToString(), out int number);
-                for (int i = FoodList.Count - 1; i > number; i--)
-                {
-                    FoodList[i].Id--;
-                }
+                
                 var a = FoodDB.FoodList.Find(number) ?? null!;
                 FoodDB.FoodList.Remove(a);
-                FoodDB.SaveChanges();
-                //FoodList.RemoveAt(number);
+                FoodDB.SaveChanges();                
             });
             Increment = new RelayCommand(obj =>
             {
@@ -81,15 +77,7 @@ namespace FoodCalculator
                 food.Type = ((TextBlock)strings[1]).Text;
                 int.TryParse(strings[2].ToString(), out int portionsInt);
                 food.Portions = portionsInt;
-                FoodList.Add(food);
-                if (FoodList.Count == 1)
-                {
-                    FoodList[0].Id = 0;
-                }
-                if (FoodList.Count >= 2)
-                {
-                    FoodList[FoodList.Count - 1].Id = FoodList[FoodList.Count - 2].Id + 1;
-                }
+                FoodList.Add(food);                
                 FoodDB.FoodList.Add(food);
                 FoodDB.SaveChanges();
 
@@ -104,23 +92,16 @@ namespace FoodCalculator
                 FoodList.Add(new Food() { Id = 5, Name = "Winters salad", Type = Food.FoodType.Salad.ToString() });
                 FoodList.Add(new Food() { Id = 6, Name = "rice", Type = Food.FoodType.Garnish.ToString(),Portions = 2 });
                 FoodList.Add(new Food() { Id = 7, Name = "kartoxa", Type = Food.FoodType.Garnish.ToString(), Portions = 2 }) ;
+                FoodList.Add(new Food() { Id = 8, Name = "borsh", Type = Food.FoodType.Soup.ToString(), Portions = 3 });
             });
             Linker.ViewModels.Add(this);
             FoodDB.Database.EnsureCreated();
             FoodDB.FoodList.Load();
             FoodList = FoodDB.FoodList.Local.ToObservableCollection();
+            if (true) { }
             //FoodList.Add(new Food("priva") { Type="Soup",Id=0});
         }
 
-        private void FoodList_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Remove: // если добавление
-
-
-                    break;
-            }
-        }
+        
     }
 }
