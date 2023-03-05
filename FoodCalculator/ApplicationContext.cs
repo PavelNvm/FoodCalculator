@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FoodCalculator
 {
-    internal class ApplicationContext : DbContext
+    internal class FoodContext : DbContext
     {
         public DbSet<Food> FoodList { get; set; } = null!;
         //public DbSet<StatRecord> StatRecords { get; set; } = null!;
@@ -17,4 +17,15 @@ namespace FoodCalculator
         }
 
     }
+    internal class WeekContext : DbContext
+    {
+        public DbSet<Week> WeekList { get; set; } = null!;
+        //public DbSet<StatRecord> StatRecords { get; set; } = null!;
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=WeekDataBase.db");
+        }
+
+    }
+
 }
