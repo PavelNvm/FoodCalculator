@@ -102,7 +102,8 @@
 
         <Button Grid.Column="4" Grid.Row="0" Content="Change Food List" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=OpenAddFoodWindowCommand}"/>
         <Button Grid.Column="4" Grid.Row="1" Content="Calculate Food" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=CalculateFoodCommand}"/>
-        <Button Grid.Column="4" Grid.Row="4" Content="Save Week" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=CalculateFoodCommand}"/>
+        <Button Grid.Column="4" Grid.Row="4" Content="Save Week" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=SaveWeekCommand}"/>
+        <!--<TextBox Grid.Row="2" Grid.Column="4" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Date, UpdateSourceTrigger=PropertyChanged}"></TextBox>-->
         <Grid Grid.Column="4" Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

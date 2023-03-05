@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,6 +53,7 @@ namespace FoodCalculator
     }
     class MainWindowViewModel : INotifyPropertyChanged
     {
+        public ObservableCollection<Week> weeks { get; set; }
         public AddFoodWindow AddFoodWindow { get; set; } = new AddFoodWindow();
         public static Random random = new Random();
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged("FoodList"); } }
@@ -80,17 +82,25 @@ namespace FoodCalculator
         public RelayCommand OpenAddFoodWindowCommand { get; set; }
         public MainWindowViewModel()
         {
-            //WeekContext WeekDB = new WeekContext();
-
-            //if (WeekDB.WeekList.Local.ToObservableCollection().Count!=0)
-            //{
-            //    CurrentWeek = WeekDB.WeekList.Local.ToObservableCollection().Last();
-            //    ShownigWeek = CurrentWeek;
-            //}
-            ShownigWeek = NextWeek;
+            WeekContext WeekDB = new WeekContext();
+            WeekDB.Database.EnsureCreated();
+            WeekDB.WeekList.Load();
+            
+            if (WeekDB.WeekList.Local.ToObservableCollection().Count != 0)
+            {
+                weeks= WeekDB.WeekList.Local.ToObservableCollection();
+                ShownigWeek = weeks.Last();
+                //CurrentWeek = weeks.Last();
+                //ShownigWeek = CurrentWeek;
+                
+            }
+            else
+                ShownigWeek = NextWeek;
             SaveWeekCommand = new RelayCommand(obj =>
             {
 
+                WeekDB.WeekList.Add(new Week() { Id = NextWeek.Id + 1, Breakfasts = NextWeek.Breakfasts }) ;
+                WeekDB.SaveChanges();
             });
             ShowNextWeekCommand = new RelayCommand(obj =>
             {
