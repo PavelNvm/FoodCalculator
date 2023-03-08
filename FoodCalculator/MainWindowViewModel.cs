@@ -16,9 +16,10 @@ namespace FoodCalculator
     class DayOfFood : INotifyPropertyChanged
     {
         //public string Name; //наверное пригодится// не пригодилось
+
         public Food Breakfast { get { return _breakfast; } set { _breakfast = value; OnPropertyChanged("Breakfast"); } }
         private Food _breakfast = null!;
-        public Food Lunch { get { return _lunch;  } set { _lunch = value; OnPropertyChanged("Lunch"); LunchWithSalad = value.Name + " + " + LunchSalad; } }
+        public Food Lunch { get { return _lunch; } set { _lunch = value; OnPropertyChanged("Lunch"); LunchWithSalad = value.Name + " + " + LunchSalad; } }
         private Food _lunch = null!;
         public Food LunchSalad { get { return _lunchSalad; } set { _lunchSalad = value; OnPropertyChanged("LunchSalad"); LunchWithSalad = Lunch + " + " + value.Name; } }
         private Food _lunchSalad = null!;
@@ -53,7 +54,9 @@ namespace FoodCalculator
     }
     class MainWindowViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Week> weeks { get; set; }
+        public WeekBL weekBL { get; set; } = new WeekBL();
+        //public WeekContext WeekDB { get; set; }
+        public ObservableCollection<WeekBL> weeks { get; set; }
         public AddFoodWindow AddFoodWindow { get; set; } = new AddFoodWindow();
         public static Random random = new Random();
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged("FoodList"); } }
@@ -61,7 +64,7 @@ namespace FoodCalculator
 
         public ObservableCollection<string> BreakfastRationList { get { return _breakfastRationList; } set { if (value != null) { _breakfastRationList = value; OnPropertyChanged("BreakfastRationList"); } } }
         private ObservableCollection<string> _breakfastRationList = null!;
-        public List<DayOfFood> WeekOfFood { get; set; } = new List<DayOfFood> { new DayOfFood(),new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood() };
+        public List<DayOfFood> WeekOfFood { get; set; } = new List<DayOfFood> { new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood() };
         //public ObservableCollection<Week> WeekList { get; set; } = new ObservableCollection<Week>();
         public Week CurrentWeek { get; set; } = new Week();
         public Week NextWeek { get; set; } = new Week();
@@ -82,25 +85,28 @@ namespace FoodCalculator
         public RelayCommand OpenAddFoodWindowCommand { get; set; }
         public MainWindowViewModel()
         {
-            WeekContext WeekDB = new WeekContext();
-            WeekDB.Database.EnsureCreated();
-            WeekDB.WeekList.Load();
-            
-            if (WeekDB.WeekList.Local.ToObservableCollection().Count != 0)
+            string tita = "";
+            //WeekDB = new WeekContext();
+            //WeekDB.Database.EnsureCreated();
+            //WeekDB.WeekList.Load();
+            string dada = "";
+            if (weekBL.WeekDB.WeekList.Local.ToObservableCollection().Count != 0)
             {
-                weeks= WeekDB.WeekList.Local.ToObservableCollection();
-                ShownigWeek = weeks.Last();
+                //weeks = WeekDB.WeekList.;
+                ShownigWeek = weekBL.WeekDB.WeekList.Local.Last();
                 //CurrentWeek = weeks.Last();
                 //ShownigWeek = CurrentWeek;
-                
             }
             else
                 ShownigWeek = NextWeek;
             SaveWeekCommand = new RelayCommand(obj =>
             {
-
-                WeekDB.WeekList.Add(new Week() { Id = NextWeek.Id + 1, Breakfasts = NextWeek.Breakfasts }) ;
-                WeekDB.SaveChanges();
+                weekBL.WeekDB.ChangeTracker.Clear();
+                weekBL.WeekDB.WeekList.Add(ShownigWeek);
+                weekBL.WeekDB.SaveChanges();
+                //weekBL.Breakfasts.Clear();
+                //weekBL.Lunches.Clear();
+                //weekBL.Dinners.Clear();
             });
             ShowNextWeekCommand = new RelayCommand(obj =>
             {
@@ -114,16 +120,17 @@ namespace FoodCalculator
             {
                 if (Linker.ViewModels.Count > 0)
                 {
-                    Week CurrentWeek = new Week();                    
+
+                    WeekBL CurrentWeek = new WeekBL();
                     FoodCalcer foodCalculator = (FoodCalcer)Linker.ViewModels.First();
                     FoodList = foodCalculator.FoodList;
                     List<Food> breakfastFood = new List<Food>();
                     List<Food> garnishFood = new List<Food>();
                     List<Food> mainFood = new List<Food>();
-                    List<Food> soupOrSaladFood = new List<Food>();                    
+                    List<Food> soupOrSaladFood = new List<Food>();
                     List<Food> breakfastFoodQueue = new List<Food>();
                     List<Food> garnishFoodQueue = new List<Food>();
-                    List<Food> mainFoodQueue = new List<Food>();                    
+                    List<Food> mainFoodQueue = new List<Food>();
                     List<Food> soupOrSaladFoodQueue = new List<Food>();
 
                     List<Food> BreaksfastWeek = new List<Food>();
@@ -170,18 +177,18 @@ namespace FoodCalculator
                     //    WeekOfFood[i].Dinner = ChoseFood(mainFood);
                     //    WeekOfFood[i].DinnerSalad = ChoseFood(soupOrSaladFood);
                     //}
-                    FillQueue(breakfastFoodQueue, breakfastFood,7);
-                    FillQueue(mainFoodQueue, mainFood,14);
-                    FillQueue(garnishFoodQueue, garnishFood,14);
+                    FillQueue(breakfastFoodQueue, breakfastFood, 7);
+                    FillQueue(mainFoodQueue, mainFood, 14);
+                    FillQueue(garnishFoodQueue, garnishFood, 14);
                     FillQueue(soupOrSaladFoodQueue, soupOrSaladFood, 14);
-                    NextWeek.FillBreakfast(breakfastFoodQueue);
-                    NextWeek.FillLunchesAndDinners(mainFoodQueue, garnishFoodQueue, soupOrSaladFoodQueue);
+                    weekBL.FillBreakfast(NextWeek, breakfastFoodQueue);
+                    weekBL.FillLunchesAndDinners(NextWeek, mainFoodQueue, garnishFoodQueue, soupOrSaladFoodQueue);
                     Food ChoseFood(List<Food> f)
                     {
                         Random rnd = new Random();
                         return f[rnd.Next(f.Count())];
                     }
-                    void FillQueue(List<Food> queue, List<Food> food,int quantity)
+                    void FillQueue(List<Food> queue, List<Food> food, int quantity)
                     {
                         Random rnd = new Random();
                         Food lastfood = food[rnd.Next(food.Count())];
@@ -201,13 +208,18 @@ namespace FoodCalculator
                         }
                     }
                 }
+                //weekBL.IsFilled();
+                //ShownigWeek = NextWeek;
+                //        WeekDB.ChangeTracker.Clear();
+                //        WeekDB.WeekList.Add(NextWeek);
+                //        WeekDB.SaveChanges();
+                //ShownigWeek = WeekDB.WeekList.Local.Last();
 
-
-
+                weekBL.FillShowingWeek(NextWeek);
 
 
             });
-             OpenAddFoodWindowCommand = new RelayCommand(obj =>
+            OpenAddFoodWindowCommand = new RelayCommand(obj =>
             {
                 try
                 {
@@ -225,4 +237,18 @@ namespace FoodCalculator
             });
         }
     }
+    //class MWeek
+    //{
+    //    public int Id { get; set; }
+    //    public int Week_Id { get; set; }
+    //}
+    //class MyContext : DbContext
+    //{
+    //    DbSet<MWeek> mWeeks { get; set; } = null!;
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    {
+    //        optionsBuilder.UseSqlite("Data Source=MyDatabase.db");
+    //    }
+
+    //}
 }

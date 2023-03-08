@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FoodCalculator
 {
-    internal class Food : INotifyPropertyChanged
+    public class Food : INotifyPropertyChanged
     {
         public enum FoodType
         {
