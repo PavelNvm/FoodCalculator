@@ -30,17 +30,21 @@ namespace FoodCalculator
 
         private void MainWindow_Closed(object? sender, EventArgs e)
         {
-            if(Application.Current.Windows.Count == 1)
-            {
+            
                 Application.Current.Shutdown();
-            }
+            
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             StatisticViewModel statisticViewModel = new StatisticViewModel();
             Statistic.StatisticView statisticView = new Statistic.StatisticView();
-            statisticView.Show();
+            //statisticView.Show();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

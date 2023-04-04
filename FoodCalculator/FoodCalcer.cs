@@ -15,6 +15,7 @@ namespace FoodCalculator
 {
     internal class FoodCalcer : INotifyPropertyChanged
     {
+        public ObservableCollection<string> FoodTypes { get; set; }
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged("FoodList"); } }
         private ObservableCollection<Food> _foodList = new ObservableCollection<Food>();
         public int InputPortionQuantity { get { return _inputPortionQuantity; } set { if (value > 0) _inputPortionQuantity = value; OnPropertyChanged("InputPortionQuantity"); } }
@@ -34,11 +35,9 @@ namespace FoodCalculator
         }
         public FoodCalcer()
         {
-            FoodList.CollectionChanged += FoodList_CollectionChanged;
+            FoodTypes = new ObservableCollection<string>(Enum.GetNames(typeof(Food.FoodType))) ;
             InputPortionQuantity = 1;
-            FoodContext FoodDB = new FoodContext();
             
-
             PortionsIncrement = new RelayCommand(obj =>
             {
                 InputPortionQuantity++;
@@ -49,15 +48,10 @@ namespace FoodCalculator
             });
             Delete = new RelayCommand(obj =>
             {
-                int.TryParse(obj.ToString(), out int number);
-                for (int i = FoodList.Count - 1; i > number; i--)
-                {
-                    FoodList[i].Id--;
-                }
-                var a = FoodDB.FoodList.Find(number) ?? null!;
-                FoodDB.FoodList.Remove(a);
-                FoodDB.SaveChanges();
-                //FoodList.RemoveAt(number);
+                int.TryParse(obj.ToString(), out int number);                
+                //var a = FoodDB.FoodList.Find(number) ?? null!;
+                //FoodDB.FoodList.Remove(a);
+                //FoodDB.SaveChanges();                
             });
             Increment = new RelayCommand(obj =>
             {
@@ -81,17 +75,9 @@ namespace FoodCalculator
                 food.Type = ((TextBlock)strings[1]).Text;
                 int.TryParse(strings[2].ToString(), out int portionsInt);
                 food.Portions = portionsInt;
-                FoodList.Add(food);
-                if (FoodList.Count == 1)
-                {
-                    FoodList[0].Id = 0;
-                }
-                if (FoodList.Count >= 2)
-                {
-                    FoodList[FoodList.Count - 1].Id = FoodList[FoodList.Count - 2].Id + 1;
-                }
-                FoodDB.FoodList.Add(food);
-                FoodDB.SaveChanges();
+                FoodList.Add(food);                
+                //FoodDB.FoodList.Add(food);
+                //FoodDB.SaveChanges();
 
             });
             TestCommand = new RelayCommand(obj =>
@@ -104,23 +90,16 @@ namespace FoodCalculator
                 FoodList.Add(new Food() { Id = 5, Name = "Winters salad", Type = Food.FoodType.Salad.ToString() });
                 FoodList.Add(new Food() { Id = 6, Name = "rice", Type = Food.FoodType.Garnish.ToString(),Portions = 2 });
                 FoodList.Add(new Food() { Id = 7, Name = "kartoxa", Type = Food.FoodType.Garnish.ToString(), Portions = 2 }) ;
+                FoodList.Add(new Food() { Id = 8, Name = "borsh", Type = Food.FoodType.Soup.ToString(), Portions = 3 });
             });
             Linker.ViewModels.Add(this);
-            FoodDB.Database.EnsureCreated();
-            FoodDB.FoodList.Load();
-            FoodList = FoodDB.FoodList.Local.ToObservableCollection();
+            //FoodDB.Database.EnsureCreated();
+            //FoodDB.FoodList.Load();
+            //FoodList = FoodDB.FoodList.Local.ToObservableCollection();
+            //if (true) { }
             //FoodList.Add(new Food("priva") { Type="Soup",Id=0});
         }
 
-        private void FoodList_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Remove: // если добавление
-
-
-                    break;
-            }
-        }
+        
     }
 }

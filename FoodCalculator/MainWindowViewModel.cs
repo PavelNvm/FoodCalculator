@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,14 +53,16 @@ namespace FoodCalculator
     }
     class MainWindowViewModel : INotifyPropertyChanged
     {
+        public ObservableCollection<Week> weeks { get; set; }
         public AddFoodWindow AddFoodWindow { get; set; } = new AddFoodWindow();
+        public Settings Settings { get; set; } = new Settings();
         public static Random random = new Random();
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged("FoodList"); } }
         private ObservableCollection<Food> _foodList = new ObservableCollection<Food>();
 
         public ObservableCollection<string> BreakfastRationList { get { return _breakfastRationList; } set { if (value != null) { _breakfastRationList = value; OnPropertyChanged("BreakfastRationList"); } } }
         private ObservableCollection<string> _breakfastRationList = null!;
-        public List<DayOfFood> WeekOfFood { get; set; } = new List<DayOfFood> { new DayOfFood(),new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood() };
+        public List<DayOfFood> WeekOfFood { get; set; } = new List<DayOfFood> { new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood() };
         //public ObservableCollection<Week> WeekList { get; set; } = new ObservableCollection<Week>();
         public Week CurrentWeek { get; set; } = new Week();
         public Week NextWeek { get; set; } = new Week();
@@ -75,19 +78,15 @@ namespace FoodCalculator
         }
         public RelayCommand CalculateFoodCommand { get; set; }
         public RelayCommand SaveWeekCommand { get; set; }
+        public RelayCommand SettingsCommand { get; set; }
         public RelayCommand ShowCurrentWeekCommand { get; set; }
         public RelayCommand ShowNextWeekCommand { get; set; }
         public RelayCommand OpenAddFoodWindowCommand { get; set; }
         public MainWindowViewModel()
         {
-            //WeekContext WeekDB = new WeekContext();
-
-            //if (WeekDB.WeekList.Local.ToObservableCollection().Count!=0)
-            //{
-            //    CurrentWeek = WeekDB.WeekList.Local.ToObservableCollection().Last();
-            //    ShownigWeek = CurrentWeek;
-            //}
-            ShownigWeek = NextWeek;
+           
+            
+            
             SaveWeekCommand = new RelayCommand(obj =>
             {
 
@@ -99,6 +98,22 @@ namespace FoodCalculator
             ShowCurrentWeekCommand = new RelayCommand(obj =>
             {
                 ShownigWeek = CurrentWeek;
+            });
+            SettingsCommand = new RelayCommand(obj =>
+            {
+                try
+                {
+                    Settings.Show();
+                    Settings.Focus();
+                }
+                catch
+                {
+                    Settings = new Settings();
+                    Settings.Show();
+                }
+                finally
+                {
+                }
             });
             CalculateFoodCommand = new RelayCommand(obj =>
             {
@@ -164,8 +179,8 @@ namespace FoodCalculator
                     FillQueue(mainFoodQueue, mainFood,14);
                     FillQueue(garnishFoodQueue, garnishFood,14);
                     FillQueue(soupOrSaladFoodQueue, soupOrSaladFood, 14);
-                    NextWeek.FillBreakfast(breakfastFoodQueue);
-                    NextWeek.FillLunchesAndDinners(mainFoodQueue, garnishFoodQueue, soupOrSaladFoodQueue);
+                    //NextWeek.FillBreakfast(breakfastFoodQueue);
+                    //NextWeek.FillLunchesAndDinners(mainFoodQueue, garnishFoodQueue, soupOrSaladFoodQueue);
                     Food ChoseFood(List<Food> f)
                     {
                         Random rnd = new Random();

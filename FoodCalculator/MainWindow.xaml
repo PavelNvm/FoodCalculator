@@ -10,8 +10,7 @@
         <local:MainWindowViewModel></local:MainWindowViewModel>
     </Window.DataContext>
     <Window.Resources>
-        <local:MainWindowViewModel x:Key="MainWindowViewModel">
-        </local:MainWindowViewModel>
+        <local:MainWindowViewModel x:Key="MainWindowViewModel"></local:MainWindowViewModel>
         <Style x:Key="FontStyle" TargetType="TextBox">
             <Setter Property="TextWrapping" Value="Wrap"></Setter>
             <Setter Property="IsReadOnly" Value="True"></Setter>
@@ -102,7 +101,9 @@
 
         <Button Grid.Column="4" Grid.Row="0" Content="Change Food List" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=OpenAddFoodWindowCommand}"/>
         <Button Grid.Column="4" Grid.Row="1" Content="Calculate Food" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=CalculateFoodCommand}"/>
-        <Button Grid.Column="4" Grid.Row="4" Content="Save Week" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=CalculateFoodCommand}"/>
+        <Button Grid.Column="4" Grid.Row="4" Content="Save Week" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=SaveWeekCommand}"/>
+        <Button Grid.Column="4" Grid.Row="7" Content="Settings" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=SettingsCommand}"/>
+        <!--<TextBox Grid.Row="2" Grid.Column="4" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Date, UpdateSourceTrigger=PropertyChanged}"></TextBox>-->
         <Grid Grid.Column="4" Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -130,7 +131,7 @@
         <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[0].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Row="2" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[1].Name, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
         <TextBox Grid.Row="3" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[2].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[3].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[3].Name, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"></TextBox>
         <TextBox Grid.Row="5" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[4].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Row="6" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[5].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Row="7" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[6].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
