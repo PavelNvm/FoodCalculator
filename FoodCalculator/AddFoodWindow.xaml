@@ -69,7 +69,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" DataContext="{StaticResource FoodCalc}">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -101,13 +101,8 @@
                 </Grid>
 
 
-                <ComboBox x:Name="TypeInput" Grid.Column="1" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="50" VerticalAlignment="Top">
-                    <TextBlock>Eggs</TextBlock>
-                    <TextBlock>KaWa</TextBlock>
-                    <TextBlock>Salad</TextBlock>
-                    <TextBlock>Soup</TextBlock>
-                    <TextBlock>Main</TextBlock>
-                    <TextBlock>Garnish</TextBlock>
+                <ComboBox x:Name="TypeInput" Grid.Column="1" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="50" VerticalAlignment="Top" ItemsSource="{Binding FoodTypes}">
+                    
                 </ComboBox>
             </Grid>
             <Button Grid.Row="2" Content="Add" FontSize="25" Command="{Binding NameInput}" >

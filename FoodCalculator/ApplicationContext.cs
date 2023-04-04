@@ -7,25 +7,20 @@ using System.Threading.Tasks;
 
 namespace FoodCalculator
 {
-    internal class FoodContext : DbContext
+    public class ApplicationContext : DbContext
     {
         public DbSet<Food> FoodList { get; set; } = null!;
-        //public DbSet<StatRecord> StatRecords { get; set; } = null!;
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=FoodDataBase.db");
-        }
-
-    }
-    internal class WeekContext : DbContext
-    {
         public DbSet<Week> WeekList { get; set; } = null!;
-        //public DbSet<StatRecord> StatRecords { get; set; } = null!;
+        public DbSet<Day> DayList { get; set; } = null!;
+        public DbSet<MealFilling> MealFillingList { get; set; } = null!;
+        public ApplicationContext()
+        {
+            //Database.EnsureDeleted();
+            Database.EnsureCreated();
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=WeekDataBase.db");
-        }
-
+            optionsBuilder.UseSqlite("Data Source=FoodCalcDataBase.db");
+        }        
     }
-
 }

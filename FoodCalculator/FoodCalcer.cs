@@ -15,6 +15,7 @@ namespace FoodCalculator
 {
     internal class FoodCalcer : INotifyPropertyChanged
     {
+        public ObservableCollection<string> FoodTypes { get; set; }
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged("FoodList"); } }
         private ObservableCollection<Food> _foodList = new ObservableCollection<Food>();
         public int InputPortionQuantity { get { return _inputPortionQuantity; } set { if (value > 0) _inputPortionQuantity = value; OnPropertyChanged("InputPortionQuantity"); } }
@@ -34,11 +35,9 @@ namespace FoodCalculator
         }
         public FoodCalcer()
         {
-            
+            FoodTypes = new ObservableCollection<string>(Enum.GetNames(typeof(Food.FoodType))) ;
             InputPortionQuantity = 1;
-            FoodContext FoodDB = new FoodContext();
             
-
             PortionsIncrement = new RelayCommand(obj =>
             {
                 InputPortionQuantity++;
@@ -49,11 +48,10 @@ namespace FoodCalculator
             });
             Delete = new RelayCommand(obj =>
             {
-                int.TryParse(obj.ToString(), out int number);
-                
-                var a = FoodDB.FoodList.Find(number) ?? null!;
-                FoodDB.FoodList.Remove(a);
-                FoodDB.SaveChanges();                
+                int.TryParse(obj.ToString(), out int number);                
+                //var a = FoodDB.FoodList.Find(number) ?? null!;
+                //FoodDB.FoodList.Remove(a);
+                //FoodDB.SaveChanges();                
             });
             Increment = new RelayCommand(obj =>
             {
@@ -78,8 +76,8 @@ namespace FoodCalculator
                 int.TryParse(strings[2].ToString(), out int portionsInt);
                 food.Portions = portionsInt;
                 FoodList.Add(food);                
-                FoodDB.FoodList.Add(food);
-                FoodDB.SaveChanges();
+                //FoodDB.FoodList.Add(food);
+                //FoodDB.SaveChanges();
 
             });
             TestCommand = new RelayCommand(obj =>
@@ -95,10 +93,10 @@ namespace FoodCalculator
                 FoodList.Add(new Food() { Id = 8, Name = "borsh", Type = Food.FoodType.Soup.ToString(), Portions = 3 });
             });
             Linker.ViewModels.Add(this);
-            FoodDB.Database.EnsureCreated();
-            FoodDB.FoodList.Load();
-            FoodList = FoodDB.FoodList.Local.ToObservableCollection();
-            if (true) { }
+            //FoodDB.Database.EnsureCreated();
+            //FoodDB.FoodList.Load();
+            //FoodList = FoodDB.FoodList.Local.ToObservableCollection();
+            //if (true) { }
             //FoodList.Add(new Food("priva") { Type="Soup",Id=0});
         }
 
