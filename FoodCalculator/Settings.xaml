@@ -40,7 +40,7 @@
                     </Grid.ColumnDefinitions>
                 
                 <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="Breakfast" FontSize="25" />
-                <ComboBox x:Name="QoantityInBreakFastMealFilling" Grid.Column="1" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="50" VerticalAlignment="Top" ItemsSource="{Binding CBE}" SelectedValue="{Binding BreakfastSetting.FoodQuantity}">
+                <ComboBox x:Name="QoantityInBreakFastMealFilling" Grid.Column="1" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="50" VerticalAlignment="Top" ItemsSource="{Binding CBE}" SelectedValue="{Binding BreakFastFoodQuantity}">
                     <!--<ComboBoxItem Content="1"/>
                     <ComboBoxItem Content="2"/>
                     <ComboBoxItem Content="3"/>
@@ -48,22 +48,23 @@
                     <ComboBoxItem Content="5"/>
                     <ComboBoxItem Content="6"/>-->
                 </ComboBox>
-                <ListBox x:Name="Listik" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding BreakfastSetting.FoodTypeList,UpdateSourceTrigger=PropertyChanged}">
+                <ListBox x:Name="Listik" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding BreakfastFoodTypeList,UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid >
-                                <!--<ComboBox x:Name="Wh9ga" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="45" Width="145" VerticalAlignment="Top" ItemsSource="{Binding FoodTypes }"  >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox x:Name="Wh9ga" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="45" Width="145" VerticalAlignment="Top"  ItemsSource="{Binding  FoodTypes }" SelectedValue="{Binding Type}"  >
                                     
-                            </ComboBox>-->
-                                <TextBlock Text="{Binding Portions}"/>
+                                </ComboBox>
+                                <TextBlock Grid.Column="1" Text="{Binding Type}"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>                    
                 </ListBox>
-                <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Save Changes" CommandParameter="{Binding ElementName=Listik,Path=Items}" Command="{Binding SaveChangesCommand}">
-                    
-
-                </Button>
+                
             </Grid>            
         </Grid>
         
