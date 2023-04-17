@@ -34,5 +34,10 @@ namespace FoodCalculator
                 Application.Current.Shutdown();
             }
         }
+
+        private void FoodList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -45,7 +45,7 @@
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.ColumnSpan="4">
                 <TextBlock TextAlignment="Center" FontSize="30" Text="Type" ></TextBlock>
             </Border>
-            <ListBox HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="5" Name="FoodList"  ItemsSource="{Binding FoodList,UpdateSourceTrigger=PropertyChanged}">
+            <ListBox HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="5" Name="FoodList"  ItemsSource="{Binding FoodList,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="FoodList_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate >
                         <Grid>
@@ -63,7 +63,7 @@
                             <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="3"  Content="-" Command="{Binding Source={StaticResource FoodCalc},Path=Decrement,Mode=OneWay}" CommandParameter="{Binding Id}"></Button>
                             <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="4"  Content="x" Command="{Binding Source={StaticResource FoodCalc},Path=Delete,Mode=TwoWay}" CommandParameter="{Binding Id}"></Button>
 
-                            <!--<TextBlock Grid.Column="1" Width="70" FontSize="20" Text="{Binding Id,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />-->
+                            
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
