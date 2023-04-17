@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FoodCalculator
 {
-
+    
     public class Food : INotifyPropertyChanged
     {
         public enum FoodType
@@ -22,8 +22,10 @@ namespace FoodCalculator
             KaWa,
             Eggs
         }
+        public ObservableCollection<string> FoodTypes { get; set; } = new ObservableCollection<string>(Enum.GetNames(typeof(FoodType)));
         public string Name { get; set; } = null!;
-        public string Type { get; set; } = null!;
+        public string Type { get { return type; } set { if (value != null) { type = value; OnPropertyChanged("Type"); } } } 
+        private string type;
         public int Portions { get { return portions; } set { if (value > 0) { portions = value; OnPropertyChanged("Portions"); } } }
         private int portions;
         public int Modifier { get { return modifier; } set { if (value >= 0) { modifier = value; OnPropertyChanged("Modifier"); } } }

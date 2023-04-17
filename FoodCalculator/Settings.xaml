@@ -11,13 +11,14 @@
     </Window.DataContext>
     <Window.Resources>
         <local:PolyConverter x:Key="PBind"/>
-        <local:SettingsViewModel x:Key="SettingsViewModel"></local:SettingsViewModel>
+        <local:SettingsViewModel x:Key="SettingsViewModel"></local:SettingsViewModel>     
+           
+        
     </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="350"/>
+            <RowDefinition Height="300"/>
         </Grid.RowDefinitions>
         <Grid Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
@@ -27,44 +28,112 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid DataContext="{StaticResource SettingsViewModel}" x:Name="Breakfast" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid DataContext="{StaticResource SettingsViewModel}" x:Name="FoodTypesZone" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>                
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                
-                <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="Breakfast" FontSize="25" />
-                <ComboBox x:Name="QoantityInBreakFastMealFilling" Grid.Column="1" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="50" VerticalAlignment="Top" ItemsSource="{Binding CBE}" SelectedValue="{Binding BreakfastSetting.FoodQuantity}">
-                    <!--<ComboBoxItem Content="1"/>
-                    <ComboBoxItem Content="2"/>
-                    <ComboBoxItem Content="3"/>
-                    <ComboBoxItem Content="4"/>
-                    <ComboBoxItem Content="5"/>
-                    <ComboBoxItem Content="6"/>-->
-                </ComboBox>
-                <ListBox x:Name="Listik" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding BreakfastSetting.FoodTypeList,UpdateSourceTrigger=PropertyChanged}">
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Add" FontSize="25" Grid.Column="2" Command="{Binding AddNewType}" />
+
+
+                <TextBox  x:Name="NewFoodType" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding Type}"/>
+                <ListBox HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding FoodTypesSettings}" FontSize="25"  VerticalContentAlignment="Center">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid >
-                                <!--<ComboBox x:Name="Wh9ga" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="45" Width="145" VerticalAlignment="Top" ItemsSource="{Binding FoodTypes }"  >
-                                    
-                            </ComboBox>-->
-                                <TextBlock Text="{Binding Portions}"/>
+                            <Grid Height="45">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontSize="25" Text="{Binding}" VerticalAlignment="Center"/>
+                                <Button Grid.Column="1" FontSize="13" Height="25" Width="25" VerticalContentAlignment="Center" VerticalAlignment="Center" Content="x"/>
                             </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    
+                    
+                </ListBox>
+
+
+            </Grid>
+            <Grid DataContext="{StaticResource SettingsViewModel}" x:Name="Breakfast" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="Breakfast" FontSize="25" />
+                <ComboBox x:Name="QoantityInBreakFastMealFilling" Grid.Column="1" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="50" VerticalAlignment="Top" ItemsSource="{Binding MaxMealFillingFoodQuantity}" SelectedValue="{Binding BreakfastFoodQuantity}"/>
+
+                <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding BreakfastFoodTypeList,UpdateSourceTrigger=PropertyChanged}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <ComboBox SelectedIndex="0"  VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  ItemsSource="{Binding FoodTypes }" SelectedValue="{Binding Type}">
+                            </ComboBox>
                         </DataTemplate>
                     </ListBox.ItemTemplate>                    
                 </ListBox>
-                <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Save Changes" CommandParameter="{Binding ElementName=Listik,Path=Items}" Command="{Binding SaveChangesCommand}">
-                    
+                
+            </Grid>
+            <Grid DataContext="{StaticResource SettingsViewModel}" x:Name="Lunch" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                </Button>
-            </Grid>            
+                <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="Lunch" FontSize="25" />
+                <ComboBox x:Name="QoantityInLunchMealFilling" Grid.Column="1" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="50" VerticalAlignment="Top" ItemsSource="{Binding MaxMealFillingFoodQuantity}" SelectedValue="{Binding LunchFoodQuantity}"/>
+
+                <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding LunchFoodTypeList,UpdateSourceTrigger=PropertyChanged}">
+                    <ListBox.ItemTemplate >
+                        <DataTemplate>
+                            <ComboBox SelectedIndex="0"  VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  ItemsSource="{Binding FoodTypes }" SelectedValue="{Binding Type}"  >
+                            </ComboBox>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+            <Grid DataContext="{StaticResource SettingsViewModel}" x:Name="Dinner" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="Dinner" FontSize="25" />
+                <ComboBox x:Name="QoantityInDinnerMealFilling" Grid.Column="1" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="50" VerticalAlignment="Top" ItemsSource="{Binding MaxMealFillingFoodQuantity}" SelectedValue="{Binding DinnerFoodQuantity}"/>
+
+                <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding DinnerFoodTypeList,UpdateSourceTrigger=PropertyChanged}">
+                    <ListBox.ItemTemplate >
+                        <DataTemplate>
+
+                            <ComboBox SelectedIndex="0"  VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  ItemsSource="{Binding FoodTypes }" SelectedValue="{Binding Type}"  >
+                            </ComboBox>
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
         </Grid>
         
     </Grid>
