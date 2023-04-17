@@ -37,6 +37,7 @@ namespace FoodCalculator
         public ObservableCollection<string> FoodTypesSettings { get; set; } = new();
 
         public RelayCommand AddNewType { get; set; }
+        public RelayCommand RemoveType { get; set; }
 
 
 
@@ -55,6 +56,10 @@ namespace FoodCalculator
                     if(!Exist)
                 FoodTypesSettings.Add(Type);                
                 Type = "";
+            });
+            RemoveType = new RelayCommand(obj =>
+            {
+
             });
         }
         public void ChangeFoodquant(int quant,ObservableCollection<Food> FL)
