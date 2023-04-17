@@ -49,6 +49,8 @@ namespace FoodCalculator
 
             AddNewType = new RelayCommand(obj =>
             {
+            if (Type == "" || Type == null)
+                    return;
                 bool Exist = false;
                 foreach (string f in FoodTypesSettings)
                     if (f == Type)
@@ -58,8 +60,8 @@ namespace FoodCalculator
                 Type = "";
             });
             RemoveType = new RelayCommand(obj =>
-            {
-
+            { 
+                FoodTypesSettings.Remove(obj as string);           
             });
         }
         public void ChangeFoodquant(int quant,ObservableCollection<Food> FL)

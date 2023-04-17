@@ -52,8 +52,8 @@
                                     <ColumnDefinition Width="5*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock FontSize="25" Text="{Binding}" VerticalAlignment="Center"/>
-                                <Button Grid.Column="1" FontSize="13" Height="25" Width="25" VerticalContentAlignment="Center" VerticalAlignment="Center" Content="x"/>
+                                <TextBlock x:Name="TypeName"  FontSize="25" Text="{Binding}" VerticalAlignment="Center"/>
+                                <Button Grid.Column="1" FontSize="13" Height="25" Width="25" VerticalContentAlignment="Center" VerticalAlignment="Center" Content="x"  DataContext="{StaticResource SettingsViewModel}" Command="{Binding RemoveType}" CommandParameter="{Binding ElementName=TypeName,Path=Text}"  />
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -79,7 +79,7 @@
                 <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding BreakfastFoodTypeList,UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <ComboBox SelectedIndex="0"  VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  ItemsSource="{Binding FoodTypes }" SelectedValue="{Binding Type}">
+                            <ComboBox SelectedIndex="0"  VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  ItemsSource="{Binding FoodTypes }" >
                             </ComboBox>
                         </DataTemplate>
                     </ListBox.ItemTemplate>                    
@@ -92,7 +92,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -115,7 +115,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
