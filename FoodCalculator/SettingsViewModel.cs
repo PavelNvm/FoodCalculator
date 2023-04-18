@@ -22,7 +22,7 @@ namespace FoodCalculator
         public string Type { get { return type; } set { if (value != null) { type = value; OnPropertyChanged("Type"); } } }
         private string type;
 
-        public ObservableCollection<string> FoodTypes { get; set; }
+       
         public int BreakfastFoodQuantity { get { return BreakfastFoodTypeList.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value,BreakfastFoodTypeList); OnPropertyChanged("BreakfastFoodQuantity"); } } }
         public ObservableCollection<Food> BreakfastFoodTypeList { get; set; }=new ObservableCollection<Food>() { new Food() { Id = 0 }};
 
@@ -44,9 +44,9 @@ namespace FoodCalculator
         public SettingsViewModel()
         {
 
-            FoodTypes = new ObservableCollection<string>(Enum.GetNames(typeof(Food.FoodType)));
+            
             FoodTypesSettings.Add("Tst");
-
+            UpdateFoodTypes();
             AddNewType = new RelayCommand(obj =>
             {
             if (Type == "" || Type == null)
@@ -58,11 +58,29 @@ namespace FoodCalculator
                     if(!Exist)
                 FoodTypesSettings.Add(Type);                
                 Type = "";
+                UpdateFoodTypes();
             });
             RemoveType = new RelayCommand(obj =>
             { 
-                FoodTypesSettings.Remove(obj as string);           
+                FoodTypesSettings.Remove(obj as string);
+                UpdateFoodTypes();
             });
+        }
+        void UpdateFoodTypes()
+        {
+            foreach(Food f in BreakfastFoodTypeList)
+            {
+                f.FoodTypes=FoodTypesSettings;
+            }
+            foreach (Food f in LunchFoodTypeList)
+            {
+                f.FoodTypes = FoodTypesSettings;
+            }
+            foreach (Food f in DinnerFoodTypeList)
+            {
+                f.FoodTypes = FoodTypesSettings;
+            }
+
         }
         public void ChangeFoodquant(int quant,ObservableCollection<Food> FL)
         {
