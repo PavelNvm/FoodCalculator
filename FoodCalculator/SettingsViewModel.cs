@@ -43,10 +43,9 @@ namespace FoodCalculator
 
         public SettingsViewModel()
         {
-
-            
             FoodTypesSettings.Add("Tst");
             UpdateFoodTypes();
+            SendToOtherVM();
             AddNewType = new RelayCommand(obj =>
             {
             if (Type == "" || Type == null)
@@ -58,13 +57,22 @@ namespace FoodCalculator
                     if(!Exist)
                 FoodTypesSettings.Add(Type);                
                 Type = "";
-                UpdateFoodTypes();
+                SendToOtherVM();
             });
             RemoveType = new RelayCommand(obj =>
             { 
                 FoodTypesSettings.Remove(obj as string);
-                UpdateFoodTypes();
+                SendToOtherVM();
             });
+        }
+        void SendToOtherVM()
+        {
+            foreach(IFoodCal vm in Linker.ViewModels) 
+            {
+                vm.FoodTypes = new();
+                foreach(string f in FoodTypesSettings)
+                    vm.FoodTypes.Add(f);
+            }
         }
         void UpdateFoodTypes()
         {
@@ -96,6 +104,7 @@ namespace FoodCalculator
                     FL.Last().Id = FL[FL.Count - 2].Id+1;
                 }
             }
+            UpdateFoodTypes();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged = null!;

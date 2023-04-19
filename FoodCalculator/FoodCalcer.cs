@@ -13,9 +13,9 @@ using System.Xml.Linq;
 
 namespace FoodCalculator
 {
-    internal class FoodCalcer : INotifyPropertyChanged
+    internal class FoodCalcer : INotifyPropertyChanged,IFoodCal
     {
-        public ObservableCollection<string> FoodTypes { get; set; }
+        public ObservableCollection<string> FoodTypes { get; set; } = new();
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged("FoodList"); } }
         private ObservableCollection<Food> _foodList = new ObservableCollection<Food>();
         public int InputPortionQuantity { get { return _inputPortionQuantity; } set { if (value > 0) _inputPortionQuantity = value; OnPropertyChanged("InputPortionQuantity"); } }
@@ -35,7 +35,8 @@ namespace FoodCalculator
         }
         public FoodCalcer()
         {
-            FoodTypes = new ObservableCollection<string>(Enum.GetNames(typeof(Food.FoodType))) ;
+            FoodTypes = new() { "asd", "dsa" };
+            
             InputPortionQuantity = 1;
             
             PortionsIncrement = new RelayCommand(obj =>
@@ -92,7 +93,8 @@ namespace FoodCalculator
                 FoodList.Add(new Food() { Id = 7, Name = "kartoxa", Type = Food.FoodType.Garnish.ToString(), Portions = 2 }) ;
                 FoodList.Add(new Food() { Id = 8, Name = "borsh", Type = Food.FoodType.Soup.ToString(), Portions = 3 });
             });
-            Linker.ViewModels.Add(this);
+            if (!Linker.ViewModels.Contains(this))
+                Linker.ViewModels.Add(this);
             //FoodDB.Database.EnsureCreated();
             //FoodDB.FoodList.Load();
             //FoodList = FoodDB.FoodList.Local.ToObservableCollection();

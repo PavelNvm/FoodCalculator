@@ -20,7 +20,7 @@
                 <Setter Property="Margin" Value="2"></Setter>
             </Style>
     </Window.Resources>
-    <Grid DataContext="{StaticResource FoodCalc}">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="400"/>
@@ -59,9 +59,9 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock FontSize="20"  Text="{Binding Name}" />
                             <TextBlock FontSize="20" Grid.Column="1"  Text="{Binding Id}" />
-                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="2"  Content="+" Command="{Binding Source={StaticResource FoodCalc},Path=Increment,Mode=OneWay}" CommandParameter="{Binding Id}"></Button>
-                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="3"  Content="-" Command="{Binding Source={StaticResource FoodCalc},Path=Decrement,Mode=OneWay}" CommandParameter="{Binding Id}"></Button>
-                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="4"  Content="x" Command="{Binding Source={StaticResource FoodCalc},Path=Delete,Mode=TwoWay}" CommandParameter="{Binding Id}"></Button>
+                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="2"  Content="+" Command="{Binding Path=Increment,Mode=OneWay}" CommandParameter="{Binding Id}"></Button>
+                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="3"  Content="-" Command="{Binding Path=Decrement,Mode=OneWay}" CommandParameter="{Binding Id}"></Button>
+                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="4"  Content="x" Command="{Binding Path=Delete,Mode=TwoWay}" CommandParameter="{Binding Id}"></Button>
 
                             
                         </Grid>
@@ -69,7 +69,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-        <Grid Grid.Column="1" DataContext="{StaticResource FoodCalc}">
+        <Grid Grid.Column="1">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -95,8 +95,8 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Button Style="{StaticResource MicroButtonStyle}" Content="+" Command="{Binding Source={StaticResource FoodCalc},Path=PortionsIncrement,Mode=OneWay}"></Button>
-                        <Button Style="{StaticResource MicroButtonStyle}" Content="-" Grid.Row="1" Command="{Binding Source={StaticResource FoodCalc},Path=PortionsDecrement,Mode=OneWay}"></Button>
+                        <Button Style="{StaticResource MicroButtonStyle}" Content="+" Command="{Binding Path=PortionsIncrement,Mode=OneWay}"></Button>
+                        <Button Style="{StaticResource MicroButtonStyle}" Content="-" Grid.Row="1" Command="{Binding Path=PortionsDecrement,Mode=OneWay}"></Button>
                     </Grid>
                 </Grid>
 

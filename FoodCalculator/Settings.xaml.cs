@@ -21,7 +21,10 @@ namespace FoodCalculator
     {
         public Settings()
         {
+            Linker.Windows.Add(this);
             InitializeComponent();
+            DataContext = new SettingsViewModel();
+            
         }
 
         

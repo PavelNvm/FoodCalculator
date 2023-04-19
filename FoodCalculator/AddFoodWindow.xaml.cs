@@ -21,10 +21,12 @@ namespace FoodCalculator
     {
         public AddFoodWindow()
         {
+            Linker.Windows.Add(this);
             InitializeComponent();
             Closed += AddFoodWindow_Closed;
-            //FoodCalc foodCalc = new FoodCalc();
-            //DataContext = foodCalc;
+            
+            DataContext = new FoodCalcer();
+            
         }
 
         private void AddFoodWindow_Closed(object? sender, EventArgs e)

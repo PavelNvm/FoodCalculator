@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid DataContext="{StaticResource SettingsViewModel}" x:Name="FoodTypesZone" Grid.ColumnSpan="2">
+            <Grid x:Name="FoodTypesZone" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
@@ -53,7 +53,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock x:Name="TypeName"  FontSize="25" Text="{Binding}" VerticalAlignment="Center"/>
-                                <Button Grid.Column="1" FontSize="13" Height="25" Width="25" VerticalContentAlignment="Center" VerticalAlignment="Center" Content="x"  DataContext="{StaticResource SettingsViewModel}" Command="{Binding RemoveType}" CommandParameter="{Binding ElementName=TypeName,Path=Text}"  />
+                                <Button Grid.Column="1" FontSize="13" Height="25" Width="25" VerticalContentAlignment="Center" VerticalAlignment="Center" Content="x" Command="{Binding RemoveType}" CommandParameter="{Binding ElementName=TypeName,Path=Text}"  />
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -63,7 +63,7 @@
 
 
             </Grid>
-            <Grid DataContext="{StaticResource SettingsViewModel}" x:Name="Breakfast" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid  x:Name="Breakfast" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
@@ -86,7 +86,7 @@
                 </ListBox>
                 
             </Grid>
-            <Grid DataContext="{StaticResource SettingsViewModel}" x:Name="Lunch" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid x:Name="Lunch" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
@@ -109,7 +109,7 @@
                 </ListBox>
 
             </Grid>
-            <Grid DataContext="{StaticResource SettingsViewModel}" x:Name="Dinner" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid  x:Name="Dinner" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>

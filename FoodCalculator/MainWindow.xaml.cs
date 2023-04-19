@@ -1,4 +1,4 @@
-﻿using FoodCalculator.Statistic;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,28 +23,25 @@ namespace FoodCalculator
     {
         public MainWindow()
         {
+            Linker.Windows.Add(this);
             InitializeComponent();
             Loaded += MainWindow_Loaded;
             Closed += MainWindow_Closed;
+            DataContext = new MainWindowViewModel();
+            
         }
 
         private void MainWindow_Closed(object? sender, EventArgs e)
         {
-            
-                Application.Current.Shutdown();
-            
+            Application.Current.Shutdown();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            StatisticViewModel statisticViewModel = new StatisticViewModel();
-            Statistic.StatisticView statisticView = new Statistic.StatisticView();
+            //StatisticViewModel statisticViewModel = new StatisticViewModel();
+            //Statistic.StatisticView statisticView = new Statistic.StatisticView();
             //statisticView.Show();
         }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        
     }
 }

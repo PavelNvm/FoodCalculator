@@ -13,8 +13,14 @@ using System.Windows;
 
 namespace FoodCalculator
 {
-    class DayOfFood : INotifyPropertyChanged
+    interface IFoodCal
     {
+        public ObservableCollection<string> FoodTypes { get; set; }
+    }
+
+    class DayOfFood : INotifyPropertyChanged, IFoodCal
+    {
+        public ObservableCollection<string> FoodTypes { get; set; } = new();
         //public string Name; //наверное пригодится// не пригодилось
         public Food Breakfast { get { return _breakfast; } set { _breakfast = value; OnPropertyChanged("Breakfast"); } }
         private Food _breakfast = null!;
@@ -53,9 +59,10 @@ namespace FoodCalculator
     }
     class MainWindowViewModel : INotifyPropertyChanged
     {
+        public ObservableCollection<string> FoodTypes { get; set; } = new();
         public ObservableCollection<Week> weeks { get; set; }
-        public AddFoodWindow AddFoodWindow { get; set; } = new AddFoodWindow();
-        public Settings Settings { get; set; } = new Settings();
+        
+        public Settings SettingsForMainWindow { get; set; } 
         public static Random random = new Random();
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged("FoodList"); } }
         private ObservableCollection<Food> _foodList = new ObservableCollection<Food>();
@@ -84,9 +91,15 @@ namespace FoodCalculator
         public RelayCommand OpenAddFoodWindowCommand { get; set; }
         public MainWindowViewModel()
         {
-           
+            if (!Linker.ViewModels.Contains(this))
+                Linker.ViewModels.Add(this);
+            //SettingsForMainWindow
+            var c= Linker.Windows.Find(item => item.GetType().Name == "MainWindow" );
+
+            var b = Linker.Windows[0].GetType().Name;
             
-            
+            if(1==1)
+            { }
             SaveWeekCommand = new RelayCommand(obj =>
             {
 
@@ -103,13 +116,15 @@ namespace FoodCalculator
             {
                 try
                 {
-                    Settings.Show();
-                    Settings.Focus();
+                    var t = Linker.Windows.Count();
+                    Window win = (Window)Linker.Windows.Find(item => item.GetType().Name == "Settings");
+                    win.Show();
+                    win.Focus();
                 }
                 catch
                 {
-                    Settings = new Settings();
-                    Settings.Show();
+                    SettingsForMainWindow = new Settings();
+                    SettingsForMainWindow.Show();
                 }
                 finally
                 {
@@ -216,13 +231,11 @@ namespace FoodCalculator
             {
                 try
                 {
-                    AddFoodWindow.Show();
-                    AddFoodWindow.Focus();
+                    
                 }
                 catch
                 {
-                    AddFoodWindow = new AddFoodWindow();
-                    AddFoodWindow.Show();
+                    
                 }
                 finally
                 {
