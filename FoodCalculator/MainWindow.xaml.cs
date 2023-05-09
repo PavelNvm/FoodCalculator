@@ -22,26 +22,8 @@ namespace FoodCalculator
     public partial class MainWindow : Window
     {
         public MainWindow()
-        {
-            Linker.Windows.Add(this);
-            InitializeComponent();
-            Loaded += MainWindow_Loaded;
-            Closed += MainWindow_Closed;
-            DataContext = new MainWindowViewModel();
-            
+        {            
+            InitializeComponent();   
         }
-
-        private void MainWindow_Closed(object? sender, EventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            //StatisticViewModel statisticViewModel = new StatisticViewModel();
-            //Statistic.StatisticView statisticView = new Statistic.StatisticView();
-            //statisticView.Show();
-        }
-        
     }
 }

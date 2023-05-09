@@ -13,7 +13,6 @@ namespace FoodCalculator
     internal static class Linker
     {
         public static List<object> ViewModels { get; set; } = new List<object>();
-        public static List<object> Windows { get;set; } = new List<object>();
         static Linker()
         {
             

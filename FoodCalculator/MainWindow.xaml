@@ -3,135 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:FoodCalculator.Views"
+        xmlns:viewmodels="clr-namespace:FoodCalculator.ViewModels"
         xmlns:local="clr-namespace:FoodCalculator"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="White">
-    
-    <Window.Resources>
-        
-        <Style x:Key="FontStyle" TargetType="TextBox">
-            <Setter Property="TextWrapping" Value="Wrap"></Setter>
-            <Setter Property="IsReadOnly" Value="True"></Setter>
-            <Setter Property="BorderBrush" Value="Black"></Setter>
-            <Setter Property="BorderThickness" Value="1"></Setter>
-            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-
-
-        </Style>
-
-    </Window.Resources>
-
-    <Grid >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.RowSpan="8" Grid.ColumnSpan="4" DataContext="{Binding BreakfastRationList}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-
-            </Grid.ColumnDefinitions>
-            <Border Grid.RowSpan="8" BorderBrush="Black" BorderThickness="1">
-                <Grid >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="DAY"/>
-                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="MON"/>
-                    <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="TUE"/>
-                    <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="WED"/>
-                    <TextBlock Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="THU"/>
-                    <TextBlock Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="FRI"/>
-                    <TextBlock Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="SAT"/>
-                    <TextBlock Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="SUN"/>
-                </Grid>
-            </Border>
-            <Border  Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1" >
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="1"  Text="Breakfast"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="2"  Text="Lunch" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="3"  Text="Dinner" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                </Grid>
-            </Border>
-
-        </Grid>
-
-        <Button Grid.Column="4" Grid.Row="0" Content="Change Food List" Command="{Binding  Path=OpenAddFoodWindowCommand}"/>
-        <Button Grid.Column="4" Grid.Row="1" Content="Calculate Food" Command="{Binding  Path=CalculateFoodCommand}"/>
-        <Button Grid.Column="4" Grid.Row="4" Content="Save Week" Command="{Binding  Path=SaveWeekCommand}"/>
-        <Button Grid.Column="4" Grid.Row="7" Content="Settings" Command="{Binding  Path=SettingsCommand}"/>
-        <!--<TextBox Grid.Row="2" Grid.Column="4" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Date, UpdateSourceTrigger=PropertyChanged}"></TextBox>-->
-        <Grid Grid.Column="4" Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Grid.Row="0" Content="Show Current Week" Command="{Binding  Path=ShowCurrentWeekCommand}"/>
-            <Button Grid.Column="4" Grid.Row="0" Content="Show Next Week" Command="{Binding  Path=ShowNextWeekCommand}"/>
-        </Grid>
-        <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Breakfasts[0].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Breakfasts[1].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Breakfasts[2].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Breakfasts[3].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Breakfasts[4].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Breakfasts[5].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Breakfasts[6].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <TextBox Grid.Row="1" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Lunches[0].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Lunches[1].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Lunches[2].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Lunches[3].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Lunches[4].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Lunches[5].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="2" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Lunches[6].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
-        <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[0].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[1].Name, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[2].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[3].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[4].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[5].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="3" Style="{StaticResource FontStyle}" Text="{Binding ShownigWeek.Dinners[6].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-    </Grid>
+    <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:CalculatorViewModel}">
+                <views:CalculatorView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AddFoodViewModel}">
+                <views:AddFoodView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
+                <views:SettingsView/>
+            </DataTemplate>
+        </ContentControl.Resources>
+    </ContentControl>    
 </Window>

@@ -94,9 +94,7 @@ namespace FoodCalculator
             if (!Linker.ViewModels.Contains(this))
                 Linker.ViewModels.Add(this);
             //SettingsForMainWindow
-            var c= Linker.Windows.Find(item => item.GetType().Name == "MainWindow" );
-
-            var b = Linker.Windows[0].GetType().Name;
+            
             
             if(1==1)
             { }
@@ -116,10 +114,8 @@ namespace FoodCalculator
             {
                 try
                 {
-                    var t = Linker.Windows.Count();
-                    Window win = (Window)Linker.Windows.Find(item => item.GetType().Name == "Settings");
-                    win.Show();
-                    win.Focus();
+                    
+                    
                 }
                 catch
                 {
@@ -221,26 +217,7 @@ namespace FoodCalculator
                         }
                     }
                 }
-
-
-
-
-
-            });
-             OpenAddFoodWindowCommand = new RelayCommand(obj =>
-            {
-                try
-                {
-                    
-                }
-                catch
-                {
-                    
-                }
-                finally
-                {
-                }
-            });
+            });             
         }
     }
 }
