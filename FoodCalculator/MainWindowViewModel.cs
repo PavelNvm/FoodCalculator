@@ -62,7 +62,6 @@ namespace FoodCalculator
         public ObservableCollection<string> FoodTypes { get; set; } = new();
         public ObservableCollection<Week> weeks { get; set; }
         
-        public Settings SettingsForMainWindow { get; set; } 
         public static Random random = new Random();
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged("FoodList"); } }
         private ObservableCollection<Food> _foodList = new ObservableCollection<Food>();
@@ -70,7 +69,7 @@ namespace FoodCalculator
         public ObservableCollection<string> BreakfastRationList { get { return _breakfastRationList; } set { if (value != null) { _breakfastRationList = value; OnPropertyChanged("BreakfastRationList"); } } }
         private ObservableCollection<string> _breakfastRationList = null!;
         public List<DayOfFood> WeekOfFood { get; set; } = new List<DayOfFood> { new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood() };
-        //public ObservableCollection<Week> WeekList { get; set; } = new ObservableCollection<Week>();
+        
         public Week CurrentWeek { get; set; } = new Week();
         public Week NextWeek { get; set; } = new Week();
         public Week ShownigWeek { get; set; } = new Week();
@@ -91,13 +90,7 @@ namespace FoodCalculator
         public RelayCommand OpenAddFoodWindowCommand { get; set; }
         public MainWindowViewModel()
         {
-            if (!Linker.ViewModels.Contains(this))
-                Linker.ViewModels.Add(this);
-            //SettingsForMainWindow
             
-            
-            if(1==1)
-            { }
             SaveWeekCommand = new RelayCommand(obj =>
             {
 
@@ -110,29 +103,14 @@ namespace FoodCalculator
             {
                 ShownigWeek = CurrentWeek;
             });
-            SettingsCommand = new RelayCommand(obj =>
-            {
-                try
-                {
-                    
-                    
-                }
-                catch
-                {
-                    SettingsForMainWindow = new Settings();
-                    SettingsForMainWindow.Show();
-                }
-                finally
-                {
-                }
-            });
+            
             CalculateFoodCommand = new RelayCommand(obj =>
             {
-                if (Linker.ViewModels.Count > 0)
+                if (1==1)
                 {
                     Week CurrentWeek = new Week();                    
-                    FoodCalcer foodCalculator = (FoodCalcer)Linker.ViewModels.First();
-                    FoodList = foodCalculator.FoodList;
+                    
+                    //FoodList = foodCalculator.FoodList;
                     List<Food> breakfastFood = new List<Food>();
                     List<Food> garnishFood = new List<Food>();
                     List<Food> mainFood = new List<Food>();

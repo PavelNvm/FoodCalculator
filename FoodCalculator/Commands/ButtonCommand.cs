@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace FoodCalculator
+namespace FoodCalculator.Commands
 {
-    public class RelayCommand : ICommand
+    public class ButtonCommand : CommandBase
     {
         private Action<object> execute;
         private Func<object, bool> canExecute;
@@ -18,7 +18,7 @@ namespace FoodCalculator
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public RelayCommand(Action<object> execute, Func<object, bool>? canExecute = null)
+        public ButtonCommand(Action<object> execute, Func<object, bool>? canExecute = null)
         {
             this.execute = execute;
             this.canExecute = canExecute ?? null!;
@@ -28,9 +28,9 @@ namespace FoodCalculator
             return this.canExecute == null || this.canExecute(parameter ?? null!);
         }
 
-        public void Execute(object? parameter)
+        public override void Execute(object? parameter)
         {
             this.execute(parameter ?? null!);
-        }
+        }        
     }
 }

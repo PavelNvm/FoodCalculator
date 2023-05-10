@@ -23,6 +23,6 @@ namespace FoodCalculator.Views
         public AddFoodView()
         {
             InitializeComponent();
-        }
+        }        
     }
 }

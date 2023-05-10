@@ -5,8 +5,110 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FoodCalculator.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="White">
+    <UserControl.Resources>
+        <Style x:Key="MicroButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="20"></Setter>
+            <Setter Property="Height" Value="20"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="2"></Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>                
+                <ColumnDefinition Width="24"/>
+                <ColumnDefinition Width="24"/>
+                <ColumnDefinition Width="24"/>
+
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <TextBlock TextAlignment="Center" FontSize="30" Text="Food"></TextBlock>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.ColumnSpan="5">
+                <TextBlock TextAlignment="Center" FontSize="30" Text="Type" ></TextBlock>
+            </Border>
+            <ListBox HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="6" Name="FoodList"  ItemsSource="{Binding FoodList,UpdateSourceTrigger=PropertyChanged}" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <!--<ColumnDefinition Width="*"/>-->
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="24"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="20"  Text="{Binding Name}" />
+                            <TextBlock FontSize="20" Grid.Column="1"  Text="{Binding Id}" />
+                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="2"  Content="+" Command="{Binding Path=Increment,Mode=OneWay}" CommandParameter="{Binding Id}"></Button>
+                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="3"  Content="-" Command="{Binding Path=Decrement,Mode=OneWay}" CommandParameter="{Binding Id}"></Button>
+                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="4"  Content="x" Command="{Binding Path=Delete,Mode=TwoWay}" CommandParameter="{Binding Id}"></Button>
+
+
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                
+            </Grid.RowDefinitions>
+            <TextBox x:Name="FoodInput" VerticalContentAlignment="Center" TextAlignment="Center" FontSize="30"></TextBox>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="1" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="Portions" Grid.ColumnSpan="3" Text="{Binding InputPortionQuantity}" VerticalContentAlignment="Center" TextAlignment="Center" FontSize="30" ></TextBox>
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Button Style="{StaticResource MicroButtonStyle}" Content="+" Command="{Binding Path=PortionsIncrement,Mode=OneWay}"></Button>
+                        <Button Style="{StaticResource MicroButtonStyle}" Content="-" Grid.Row="1" Command="{Binding Path=PortionsDecrement,Mode=OneWay}"></Button>
+                    </Grid>
+                </Grid>
+
+
+                <ComboBox x:Name="TypeInput" Grid.Column="1" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="50" VerticalAlignment="Top" ItemsSource="{Binding FoodTypes}">
+
+                </ComboBox>
+            </Grid>
             
+            <Button Grid.Row="2" Content="Add" FontSize="25" Command="{Binding NameInput}" />
+            <Button Grid.Row="3" Content="TEST.est'" FontSize="25" Command="{Binding TestCommand}" />
+            <Button Grid.Row="4" Content="Calculator" FontSize="25" Command="{Binding NavigateToCalculator}"/>
+            <Button Grid.Row="5" Content="Settings" FontSize="25" Command="{Binding NavigateToSettings}"/>
+        </Grid>
     </Grid>
 </UserControl>

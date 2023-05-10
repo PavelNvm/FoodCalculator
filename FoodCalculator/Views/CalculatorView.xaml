@@ -92,7 +92,7 @@
 
         </Grid>
 
-        <Button Grid.Column="4" Grid.Row="0" Content="Change Food List" Command="{Binding  Path=OpenAddFoodWindowCommand}"/>
+        <Button Grid.Column="4" Grid.Row="0" Content="Change Food List" Command="{Binding  Path=NavigateToAddFood}"/>
         <Button Grid.Column="4" Grid.Row="1" Content="Calculate Food" Command="{Binding  Path=CalculateFoodCommand}"/>
         <Button Grid.Column="4" Grid.Row="4" Content="Save Week" Command="{Binding  Path=SaveWeekCommand}"/>
         <Button Grid.Column="4" Grid.Row="7" Content="Settings" Command="{Binding  Path=NavigateToSettings}"/>

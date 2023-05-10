@@ -93,8 +93,7 @@ namespace FoodCalculator
                 FoodList.Add(new Food() { Id = 7, Name = "kartoxa", Type = Food.FoodType.Garnish.ToString(), Portions = 2 }) ;
                 FoodList.Add(new Food() { Id = 8, Name = "borsh", Type = Food.FoodType.Soup.ToString(), Portions = 3 });
             });
-            if (!Linker.ViewModels.Contains(this))
-                Linker.ViewModels.Add(this);
+            
             //FoodDB.Database.EnsureCreated();
             //FoodDB.FoodList.Load();
             //FoodList = FoodDB.FoodList.Local.ToObservableCollection();
