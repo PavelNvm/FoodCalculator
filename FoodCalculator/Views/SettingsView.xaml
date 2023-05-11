@@ -22,8 +22,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button FontSize="20" MaxHeight="40" Content="Back to Calculator" Margin="5" Command="{Binding Path=NavigateToCalculator}"/>
-            <Button FontSize="20" MaxHeight="40" Content="testik" Margin="5" Command="{Binding RemoveType}" Grid.Column="1" />
-            <Button Grid.Column="2" FontSize="13" Height="25" Width="25" VerticalContentAlignment="Center" VerticalAlignment="Center" Content="X" Command="{Binding Path=RemoveType}" CommandParameter="{Binding ElementName=TypeName,Path=Text}"  />
+            
         </Grid>
         <Grid Grid.RowSpan="2" Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -57,7 +56,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock x:Name="TypeName"  FontSize="25" Text="{Binding}" VerticalAlignment="Center"/>
-                                <Button Grid.Column="1" FontSize="13" Height="25" Width="25" VerticalContentAlignment="Center" VerticalAlignment="Center" Content="X" Command="{Binding Source={RelativeSource AncestorType=viewmodels:SettingsViewModel},Path=RemoveType}" CommandParameter="{Binding ElementName=TypeName,Path=Text}"  />
+                                <Button Grid.Column="1" FontSize="13" Height="25" Width="25" VerticalContentAlignment="Center" VerticalAlignment="Center" Content="X" Command="{Binding DataContext.RemoveType,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" CommandParameter="{Binding ElementName=TypeName,Path=Text}"  />
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

@@ -63,11 +63,7 @@ namespace FoodCalculator.ViewModels
             });
             RemoveType = new ButtonCommand(obj =>
             {
-                if(1==1)
-                {
-                    int i = 0;
-                }
-                //FoodTypesSettings.Remove(obj as string);
+                FoodTypesSettings.Remove(obj as string);
             });
         }
         void UpdateFoodTypes()

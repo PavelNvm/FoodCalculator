@@ -31,8 +31,7 @@ namespace FoodCalculator
         public int Modifier { get { return modifier; } set { if (value >= 0) { modifier = value; OnPropertyChanged("Modifier"); } } }
         private int modifier;
         public int Id { get { return id; } set { if (value >= 0) { id = value; OnPropertyChanged("Id"); } } }
-        private int id;
-        public List<MealFilling> MealFillings { get; set; } = new();
+        private int id;        
         public Food(string name)
         {
             Name = name;
@@ -51,8 +50,7 @@ namespace FoodCalculator
     public class MealFilling : INotifyPropertyChanged
     {
         public int Id { get; set; }        
-        public string? Type { get; set; }
-        public string? Name { get; set; }
+        public string? Type { get; set; }        
         public string? FoodListOrder { get; set; } = "";
         public int FoodQuantity { get { return FoodTypeList.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value); OnPropertyChanged("FoodQuantity"); } } }
         public ObservableCollection<Food> FoodTypeList { get; set; }= new();
