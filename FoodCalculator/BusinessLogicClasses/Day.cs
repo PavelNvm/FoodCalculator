@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace FoodCalculator.BusinessLogicClasses
 {
-    internal class Day
+    public class Day
     {
+        public int Id { get; set; }
+        public DateOnly Date { get; set; }
+        public MealFilling BreakFast { get; set; }
+        public MealFilling Lunch { get; set; }
+        public MealFilling Dinner { get; set; }
+        public int Week_Id { get; set; }
     }
 }
