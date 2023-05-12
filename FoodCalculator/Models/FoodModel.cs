@@ -12,5 +12,6 @@ namespace FoodCalculator.Models
         public int FoodTypeID { get; set; }
         public int Portions { get; set; }
         public int Modifier { get; set; }
+        public string? Name { get; set; }
     }
 }

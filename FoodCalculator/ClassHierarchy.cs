@@ -12,18 +12,8 @@ namespace FoodCalculator
 {
     
     public class Food : INotifyPropertyChanged
-    {
-        public enum FoodType
-        {
-            Main,
-            Garnish,
-            Soup,
-            Salad,
-            KaWa,
-            Eggs
-        }
-        public ObservableCollection<string> FoodTypes { get; set; } = new ObservableCollection<string>(Enum.GetNames(typeof(FoodType)));
-        public string Name { get; set; } = null!;
+    {       
+        public string Name { get; set; } = null!;        
         public string Type { get { return type; } set { if (value != null) { type = value; OnPropertyChanged("Type"); } } } 
         private string type;
         public int Portions { get { return portions; } set { if (value > 0) { portions = value; OnPropertyChanged("Portions"); } } }
@@ -105,12 +95,9 @@ namespace FoodCalculator
     {
         public int Id { get; set; }
         public DateOnly Date { get; set; }
-        public MealFilling BreakFast { get; set; }
-        public int BreakFast_Id { get; set; }
+        public MealFilling BreakFast { get; set; }        
         public MealFilling Lunch { get; set; }
-        public int Lunch_Id { get; set; }
         public MealFilling Dinner { get; set; }
-        public int Dinner_Id { get; set; }
         public int Week_Id { get; set; }
     }
     public class Week
