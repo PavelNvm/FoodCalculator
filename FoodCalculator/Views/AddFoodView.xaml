@@ -2,113 +2,80 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
              xmlns:local="clr-namespace:FoodCalculator.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="White">
     <UserControl.Resources>
-        <Style x:Key="MicroButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="20"></Setter>
-            <Setter Property="Height" Value="20"></Setter>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-            <Setter Property="Margin" Value="2"></Setter>
-        </Style>
+    <Style x:Key="TransparentButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                    </ControlTemplate>
+                </Setter.Value>                
+            </Setter>
+    </Style>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="300"/>
-        </Grid.ColumnDefinitions>
-        <Grid>
+    <Grid MaxHeight="450" MaxWidth="800">
+        <Button  VerticalAlignment="Top" HorizontalAlignment="Left" MaxHeight="24" MaxWidth="24" Margin="30 4 0 0" Background="Transparent" BorderThickness="0" Command="{Binding NavigateToCalculator}" Style="{StaticResource TransparentButton}">
+            <Grid Background="Transparent">
+            <Viewbox>
+                <Path Fill="DarkGray" Stretch="Fill"   VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Data="M459 777 258 576l201-201 18.5 18.5L295 576l182.5 182.5L459 777Zm224.5 0-201-201 201-201 18.5 18.5L519.5 576 702 758.5 683.5 777Z"/> 
+            </Viewbox>
+            </Grid>
+        </Button>
+        <Grid Background="LightGray"  Margin="30">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>                
-                <ColumnDefinition Width="24"/>
-                <ColumnDefinition Width="24"/>
-                <ColumnDefinition Width="24"/>
-
-            </Grid.ColumnDefinitions>
-            <Border BorderBrush="Black" BorderThickness="1">
-                <TextBlock TextAlignment="Center" FontSize="30" Text="Food"></TextBlock>
-            </Border>
-            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.ColumnSpan="5">
-                <TextBlock TextAlignment="Center" FontSize="30" Text="Type" ></TextBlock>
-            </Border>
-            <ListBox HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="6" Name="FoodList"  ItemsSource="{Binding FoodList,UpdateSourceTrigger=PropertyChanged}" >
-                <ListBox.ItemTemplate>
-                    <DataTemplate >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <!--<ColumnDefinition Width="*"/>-->
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="24"/>
-                                <ColumnDefinition Width="24"/>
-                                <ColumnDefinition Width="24"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock FontSize="20"  Text="{Binding Name}" />
-                            <TextBlock FontSize="20" Grid.Column="1"  Text="{Binding Id}" />
-                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="2"  Content="+" Command="{Binding Path=Increment,Mode=OneWay}" CommandParameter="{Binding Id}"></Button>
-                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="3"  Content="-" Command="{Binding Path=Decrement,Mode=OneWay}" CommandParameter="{Binding Id}"></Button>
-                            <Button Style="{StaticResource MicroButtonStyle}" Grid.Column="4"  Content="x" Command="{Binding Path=Delete,Mode=TwoWay}" CommandParameter="{Binding Id}"></Button>
-
-
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Grid>
-        <Grid Grid.Column="1">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                
-            </Grid.RowDefinitions>
-            <TextBox x:Name="FoodInput" VerticalContentAlignment="Center" TextAlignment="Center" FontSize="30"></TextBox>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto" MaxWidth="150"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>                    
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Row="1" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="Portions" Grid.ColumnSpan="3" Text="{Binding InputPortionQuantity}" VerticalContentAlignment="Center" TextAlignment="Center" FontSize="30" ></TextBox>
-                    <Grid Grid.Column="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Button Style="{StaticResource MicroButtonStyle}" Content="+" Command="{Binding Path=PortionsIncrement,Mode=OneWay}"></Button>
-                        <Button Style="{StaticResource MicroButtonStyle}" Content="-" Grid.Row="1" Command="{Binding Path=PortionsDecrement,Mode=OneWay}"></Button>
-                    </Grid>
-                </Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0"  Text="Food" Margin="12 5 5 5" />
+                <TextBox Grid.Row="1" Grid.Column="0" Margin="10 5 5 5" VerticalContentAlignment="Center"/>
 
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="Type of Food" Margin="7 5" />
+                <ComboBox Grid.Row="1" Grid.Column="1" Margin="5 5 5 5"  />
 
-                <ComboBox x:Name="TypeInput" Grid.Column="1" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="50" VerticalAlignment="Top" ItemsSource="{Binding FoodTypes}">
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="Portions" Margin="7 5 "  />
+                <TextBox Grid.Row="1" Grid.Column="2" Margin=" 7 5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Text="1" />
 
-                </ComboBox>
+                <Button Grid.Row="1" Grid.Column="3" Content="Add" Width="50"   Margin="5 5 10 5" />
+
             </Grid>
-            
-            <Button Grid.Row="2" Content="Add" FontSize="25" Command="{Binding NameInput}" />
-            <Button Grid.Row="3" Content="TEST.est'" FontSize="25" Command="{Binding TestCommand}" />
-            <Button Grid.Row="4" Content="Calculator" FontSize="25" Command="{Binding NavigateToCalculator}"/>
-            <Button Grid.Row="5" Content="Settings" FontSize="25" Command="{Binding NavigateToSettings}"/>
+            <Grid Grid.Row="1" Margin="10 5">
+                <ListView ItemsSource="{Binding FoodList}" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Food" Width="400" DisplayMemberBinding="{Binding Name}">                                
+                            </GridViewColumn>
+                            <GridViewColumn Header="Type"  DisplayMemberBinding="{Binding Type}">
+                            </GridViewColumn>
+                            <GridViewColumn Header="Portions"  DisplayMemberBinding="{Binding Portions}">
+                            </GridViewColumn>
+                            <GridViewColumn  >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Delete" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

@@ -8,6 +8,7 @@
         xmlns:local="clr-namespace:FoodCalculator"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="White">
+    <Grid MaxWidth="800" MaxHeight="450">
     <ContentControl Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type viewmodels:CalculatorViewModel}">
@@ -20,5 +21,6 @@
                 <views:SettingsView/>
             </DataTemplate>
         </ContentControl.Resources>
-    </ContentControl>    
+    </ContentControl>
+    </Grid>
 </Window>

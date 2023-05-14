@@ -83,15 +83,15 @@ namespace FoodCalculator
             });
             TestCommand = new RelayCommand(obj =>
             {
-                FoodList.Add(new Food() { Id = 0, Name = "kaWa", Type = "KaWa" });
-                FoodList.Add(new Food() { Id = 1, Name = "eggs", Type = "Eggs" });
-                FoodList.Add(new Food() { Id = 2, Name = "kotleta", Type = "Main",Portions=3 });
-                FoodList.Add(new Food() { Id = 3, Name = "seledka pod shuboi", Type = Food.FoodType.Salad.ToString() });
-                FoodList.Add(new Food() { Id = 4, Name = "jarennaya chicken", Type = Food.FoodType.Main.ToString(),Portions=4 });
-                FoodList.Add(new Food() { Id = 5, Name = "Winters salad", Type = Food.FoodType.Salad.ToString() });
-                FoodList.Add(new Food() { Id = 6, Name = "rice", Type = Food.FoodType.Garnish.ToString(),Portions = 2 });
-                FoodList.Add(new Food() { Id = 7, Name = "kartoxa", Type = Food.FoodType.Garnish.ToString(), Portions = 2 }) ;
-                FoodList.Add(new Food() { Id = 8, Name = "borsh", Type = Food.FoodType.Soup.ToString(), Portions = 3 });
+                //FoodList.Add(new Food() { Id = 0, Name = "kaWa", Type = "KaWa" });
+                //FoodList.Add(new Food() { Id = 1, Name = "eggs", Type = "Eggs" });
+                //FoodList.Add(new Food() { Id = 2, Name = "kotleta", Type = "Main",Portions=3 });
+                //FoodList.Add(new Food() { Id = 3, Name = "seledka pod shuboi", Type = Food.FoodType.Salad.ToString() });
+                //FoodList.Add(new Food() { Id = 4, Name = "jarennaya chicken", Type = Food.FoodType.Main.ToString(),Portions=4 });
+                //FoodList.Add(new Food() { Id = 5, Name = "Winters salad", Type = Food.FoodType.Salad.ToString() });
+                //FoodList.Add(new Food() { Id = 6, Name = "rice", Type = Food.FoodType.Garnish.ToString(),Portions = 2 });
+                //FoodList.Add(new Food() { Id = 7, Name = "kartoxa", Type = Food.FoodType.Garnish.ToString(), Portions = 2 }) ;
+                //FoodList.Add(new Food() { Id = 8, Name = "borsh", Type = Food.FoodType.Soup.ToString(), Portions = 3 });
             });
             
             //FoodDB.Database.EnsureCreated();

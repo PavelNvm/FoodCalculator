@@ -23,7 +23,7 @@ namespace FoodCalculator
     {
         public MainWindow()
         {            
-            InitializeComponent();   
+            InitializeComponent();
         }
     }
 }

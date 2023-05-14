@@ -68,18 +68,18 @@ namespace FoodCalculator.ViewModels
         }
         void UpdateFoodTypes()
         {
-            foreach (Food f in BreakfastFoodTypeList)
-            {
-                f.FoodTypes = FoodTypesSettings;
-            }
-            foreach (Food f in LunchFoodTypeList)
-            {
-                f.FoodTypes = FoodTypesSettings;
-            }
-            foreach (Food f in DinnerFoodTypeList)
-            {
-                f.FoodTypes = FoodTypesSettings;
-            }
+            //foreach (Food f in BreakfastFoodTypeList)
+            //{
+            //    f.FoodTypes = FoodTypesSettings;
+            //}
+            //foreach (Food f in LunchFoodTypeList)
+            //{
+            //    f.FoodTypes = FoodTypesSettings;
+            //}
+            //foreach (Food f in DinnerFoodTypeList)
+            //{
+            //    f.FoodTypes = FoodTypesSettings;
+            //}
 
         }
         public void ChangeFoodquant(int quant, ObservableCollection<Food> FL)

@@ -127,31 +127,31 @@ namespace FoodCalculator
 
                     foreach (var element in FoodList)
                     {
-                        if (element.Type == Food.FoodType.Eggs.ToString() || element.Type == Food.FoodType.KaWa.ToString())
-                        {
-                            for (int i = 0; i < element.Modifier; i++)
-                                breakfastFood.Add(element);
-                        }
-                        else if (element.Type == Food.FoodType.Garnish.ToString())
-                        {
-                            for (int i = 0; i < element.Modifier; i++)
-                                garnishFood.Add(element);
-                        }
-                        else if (element.Type == Food.FoodType.Main.ToString())
-                        {
-                            for (int i = 0; i < element.Modifier; i++)
-                                mainFood.Add(element);
-                        }
-                        else if (element.Type == Food.FoodType.Soup.ToString())
-                        {
-                            for (int i = 0; i < element.Modifier; i++)
-                                soupOrSaladFood.Add(element);
-                        }
-                        else if (element.Type == Food.FoodType.Salad.ToString())
-                        {
-                            for (int i = 0; i < element.Modifier; i++)
-                                soupOrSaladFood.Add(element);
-                        }
+                        //if (element.Type == Food.FoodType.Eggs.ToString() || element.Type == Food.FoodType.KaWa.ToString())
+                        //{
+                        //    for (int i = 0; i < element.Modifier; i++)
+                        //        breakfastFood.Add(element);
+                        //}
+                        //else if (element.Type == Food.FoodType.Garnish.ToString())
+                        //{
+                        //    for (int i = 0; i < element.Modifier; i++)
+                        //        garnishFood.Add(element);
+                        //}
+                        //else if (element.Type == Food.FoodType.Main.ToString())
+                        //{
+                        //    for (int i = 0; i < element.Modifier; i++)
+                        //        mainFood.Add(element);
+                        //}
+                        //else if (element.Type == Food.FoodType.Soup.ToString())
+                        //{
+                        //    for (int i = 0; i < element.Modifier; i++)
+                        //        soupOrSaladFood.Add(element);
+                        //}
+                        //else if (element.Type == Food.FoodType.Salad.ToString())
+                        //{
+                        //    for (int i = 0; i < element.Modifier; i++)
+                        //        soupOrSaladFood.Add(element);
+                        //}
                     }
 
 
