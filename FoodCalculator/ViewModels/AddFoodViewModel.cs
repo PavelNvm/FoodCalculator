@@ -15,11 +15,17 @@ namespace FoodCalculator.ViewModels
         public NavigationStore NavigationStore { get; set; }
         public DataStore DataStore { get; set; }        
         public ICommand NavigateToCalculator { get; set; }
+        public ICommand DeleteCommand { get; set; }
         public AddFoodViewModel(NavigationStore navigationStore, DataStore dataStore)
         {
             NavigationStore = navigationStore;
             DataStore = dataStore;            
             NavigateToCalculator = new NavigateCommand<CalculatorViewModel>(NavigationStore, () => new CalculatorViewModel(NavigationStore, DataStore));
+            DeleteCommand = new ButtonCommand(obj => 
+            {
+                
+                FoodList.Remove(obj as Food);
+            });
             popa();
         }
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged(nameof(FoodList)); } }
@@ -35,6 +41,15 @@ namespace FoodCalculator.ViewModels
             FoodList.Add(new Food() { Id = 6, Name = "rice", Type = "Garnish", Portions = 2 });
             FoodList.Add(new Food() { Id = 7, Name = "kartoxa", Type = "Garnish", Portions = 2 });
             FoodList.Add(new Food() { Id = 8, Name = "borsh", Type = "Soup", Portions = 3 });
+            FoodList.Add(new Food() { Id = 9, Name = "1", Type = "KaWa" });
+            FoodList.Add(new Food() { Id = 10, Name = "2", Type = "Eggs" });
+            FoodList.Add(new Food() { Id = 11, Name = "k", Type = "Main", Portions = 3 });
+            FoodList.Add(new Food() { Id = 12, Name = "eledka pod shuboi", Type = "Salad" });
+            FoodList.Add(new Food() { Id = 13, Name = "arennaya chicken", Type = "Main", Portions = 4 });
+            FoodList.Add(new Food() { Id = 14, Name = "inters salad", Type = "Salad" });
+            FoodList.Add(new Food() { Id = 15, Name = "ice", Type = "Garnish", Portions = 2 });
+            FoodList.Add(new Food() { Id = 16, Name = "artoxa", Type = "Garnish", Portions = 2 });
+            FoodList.Add(new Food() { Id = 17, Name = "orsh", Type = "Soup", Portions = 3 });
         }
     }
 }
