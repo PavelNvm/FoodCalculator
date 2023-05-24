@@ -10,19 +10,24 @@ namespace FoodCalculator.Stores
 {
     public class DataStore
     {
-        public ObservableCollection<Food> FoodList { get; set; }
-        public ObservableCollection<string> FoodTypes { get; set; }
+        private ObservableCollection<Food> FoodList { get; set; }
+        private ObservableCollection<string> FoodTypes { get; set; }
         public DataStore() 
         {
-            
+            GetFoodListFromDB();
+            GetFoodTypesFromDB();
         }
-        public void GetFoodListFromDB()
+        public ObservableCollection<string> GetFoodTypes()
+        {
+            return FoodTypes;
+        }
+        private void GetFoodListFromDB()
         {
 
         }
-        public void GetFoodTypesFromDB()
+        private void GetFoodTypesFromDB()
         {
-
+            FoodTypes = new ObservableCollection<string>() {"raz","dva" };
         }
     }
 }

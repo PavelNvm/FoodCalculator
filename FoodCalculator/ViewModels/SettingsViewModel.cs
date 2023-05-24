@@ -35,17 +35,15 @@ namespace FoodCalculator.ViewModels
 
         public int DinnerFoodQuantity { get { return DinnerFoodTypeList.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DinnerFoodTypeList); OnPropertyChanged("DinnerFoodQuantity"); } } }
         public ObservableCollection<Food> DinnerFoodTypeList { get; set; } = new ObservableCollection<Food>() { new Food() { Id = 0 } };
-
-        public ObservableCollection<string> FoodTypesSettings { get; set; } = new();
         public SettingsViewModel(NavigationStore navigationStore, DataStore dataStore)
         {
             NavigationStore = navigationStore;
             DataStore = dataStore;
             NavigateToCalculator = new NavigateCommand<CalculatorViewModel>(NavigationStore, () => new CalculatorViewModel(NavigationStore, DataStore));
             NavigateToAddFood = new NavigateCommand<AddFoodViewModel>(NavigationStore, () => new AddFoodViewModel(NavigationStore, DataStore));
+            FoodTypes = DataStore.GetFoodTypes();
 
-
-            FoodTypesSettings.Add("Tst");
+            
             UpdateFoodTypes();
 
             AddNewType = new ButtonCommand(obj =>
@@ -53,33 +51,33 @@ namespace FoodCalculator.ViewModels
                 if (Type == "" || Type == null)
                     return;
                 bool Exist = false;
-                foreach (string f in FoodTypesSettings)
+                foreach (string f in FoodTypes)
                     if (f == Type)
                     { Exist = true; }
                 if (!Exist)
-                    FoodTypesSettings.Add(Type);
+                    FoodTypes.Add(Type);
                 Type = "";
 
             });
             RemoveType = new ButtonCommand(obj =>
             {
-                FoodTypesSettings.Remove(obj as string);
+                FoodTypes.Remove(obj as string);
             });
         }
         void UpdateFoodTypes()
         {
-            //foreach (Food f in BreakfastFoodTypeList)
-            //{
-            //    f.FoodTypes = FoodTypesSettings;
-            //}
-            //foreach (Food f in LunchFoodTypeList)
-            //{
-            //    f.FoodTypes = FoodTypesSettings;
-            //}
-            //foreach (Food f in DinnerFoodTypeList)
-            //{
-            //    f.FoodTypes = FoodTypesSettings;
-            //}
+            foreach (Food f in BreakfastFoodTypeList)
+            {
+                f.FoodTypes = FoodTypes;
+            }
+            foreach (Food f in LunchFoodTypeList)
+            {
+                f.FoodTypes = FoodTypes;
+            }
+            foreach (Food f in DinnerFoodTypeList)
+            {
+                f.FoodTypes = FoodTypes;
+            }
 
         }
         public void ChangeFoodquant(int quant, ObservableCollection<Food> FL)

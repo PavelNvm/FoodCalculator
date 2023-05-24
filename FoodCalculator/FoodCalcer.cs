@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 namespace FoodCalculator
 {
-    internal class FoodCalcer : INotifyPropertyChanged,IFoodCal
+    internal class FoodCalcer : INotifyPropertyChanged
     {
         public ObservableCollection<string> FoodTypes { get; set; } = new();
         public ObservableCollection<Food> FoodList { get { return _foodList; } set { _foodList = value; OnPropertyChanged("FoodList"); } }

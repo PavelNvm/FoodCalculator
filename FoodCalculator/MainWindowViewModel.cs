@@ -13,50 +13,9 @@ using System.Windows;
 
 namespace FoodCalculator
 {
-    interface IFoodCal
-    {
-        public ObservableCollection<string> FoodTypes { get; set; }
-    }
+    
 
-    class DayOfFood : INotifyPropertyChanged, IFoodCal
-    {
-        public ObservableCollection<string> FoodTypes { get; set; } = new();
-        //public string Name; //наверное пригодится// не пригодилось
-        public Food Breakfast { get { return _breakfast; } set { _breakfast = value; OnPropertyChanged("Breakfast"); } }
-        private Food _breakfast = null!;
-        public Food Lunch { get { return _lunch;  } set { _lunch = value; OnPropertyChanged("Lunch"); LunchWithSalad = value.Name + " + " + LunchSalad; } }
-        private Food _lunch = null!;
-        public Food LunchSalad { get { return _lunchSalad; } set { _lunchSalad = value; OnPropertyChanged("LunchSalad"); LunchWithSalad = Lunch + " + " + value.Name; } }
-        private Food _lunchSalad = null!;
-        public Food Dinner { get { return _dinner; } set { _dinner = value; OnPropertyChanged("Dinner"); DinnerWithSalad = value.Name + " + " + DinnerSalad; } }
-        private Food _dinner = null!;
-        public Food DinnerSalad { get { return _dinnerSalad; } set { _dinnerSalad = value; OnPropertyChanged("DinnerSalad"); DinnerWithSalad = Dinner + " + " + value.Name; } }
-        private Food _dinnerSalad = null!;
-        public string LunchWithSalad { get { return _lunchWithSalad; } set { _lunchWithSalad = value ?? ""; OnPropertyChanged("LunchWithSalad"); } }
-        private string _lunchWithSalad = "";
-        public string DinnerWithSalad { get { return _dinnerWithSalad; } set { _dinnerWithSalad = value ?? ""; OnPropertyChanged("DinnerWithSalad"); } }
-        private string _dinnerWithSalad = "";
-        public event PropertyChangedEventHandler? PropertyChanged = null!;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-        public DayOfFood(Food breakfast, Food lunch, Food lunchSalad, Food dinner, Food dinnerSalad)
-        {
-            Breakfast = breakfast;
-            Lunch = lunch;
-            LunchSalad = lunchSalad;
-            Dinner = dinner;
-            DinnerSalad = dinnerSalad;
-            LunchWithSalad = Lunch + " + " + LunchSalad;
-            DinnerWithSalad = Dinner + " + " + DinnerSalad;
-        }
-        public DayOfFood()
-        {
-
-        }
-    }
+    
     class MainWindowViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<string> FoodTypes { get; set; } = new();
@@ -68,7 +27,7 @@ namespace FoodCalculator
 
         public ObservableCollection<string> BreakfastRationList { get { return _breakfastRationList; } set { if (value != null) { _breakfastRationList = value; OnPropertyChanged("BreakfastRationList"); } } }
         private ObservableCollection<string> _breakfastRationList = null!;
-        public List<DayOfFood> WeekOfFood { get; set; } = new List<DayOfFood> { new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood(), new DayOfFood() };
+        
         
         public Week CurrentWeek { get; set; } = new Week();
         public Week NextWeek { get; set; } = new Week();

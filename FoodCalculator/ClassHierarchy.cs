@@ -21,7 +21,8 @@ namespace FoodCalculator
         public int Modifier { get { return modifier; } set { if (value >= 0) { modifier = value; OnPropertyChanged("Modifier"); } } }
         private int modifier;
         public int Id { get { return id; } set { if (value >= 0) { id = value; OnPropertyChanged("Id"); } } }
-        private int id;        
+        private int id;
+        public ObservableCollection<string> FoodTypes { get; set; }
         public Food(string name)
         {
             Name = name;
