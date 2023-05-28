@@ -12,10 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace FoodCalculator
-{
-    
-
-    
+{    
     class MainWindowViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<string> FoodTypes { get; set; } = new();

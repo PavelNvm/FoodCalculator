@@ -35,7 +35,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.RowSpan="8" Grid.ColumnSpan="4" DataContext="{Binding BreakfastRationList}">
+        <Grid Grid.RowSpan="8" Grid.ColumnSpan="4" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -105,28 +105,28 @@
             <Button Grid.Column="0" Grid.Row="0" Content="Show Current Week" Command="{Binding  Path=ShowCurrentWeekCommand}"/>
             <Button Grid.Column="4" Grid.Row="0" Content="Show Next Week" Command="{Binding  Path=ShowNextWeekCommand}"/>
         </Grid>        
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ShownigWeek.Breakfasts[0].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ShownigWeek.Breakfasts[1].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ShownigWeek.Breakfasts[2].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ShownigWeek.Breakfasts[3].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ShownigWeek.Breakfasts[4].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding ShownigWeek.Breakfasts[5].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding ShownigWeek.Breakfasts[6].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding MealFillings[0], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding MealFillings[3], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding MealFillings[6], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding MealFillings[9], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding MealFillings[12], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding MealFillings[15], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding MealFillings[18], UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding ShownigWeek.Lunches[0].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding ShownigWeek.Lunches[1].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding ShownigWeek.Lunches[2].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding ShownigWeek.Lunches[3].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding ShownigWeek.Lunches[4].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding ShownigWeek.Lunches[5].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="2" Text="{Binding ShownigWeek.Lunches[6].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding MealFillings[1], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding MealFillings[4], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding MealFillings[7], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding MealFillings[10], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding MealFillings[13], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding MealFillings[16], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="7" Grid.Column="2" Text="{Binding MealFillings[19], UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding ShownigWeek.Dinners[0].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding ShownigWeek.Dinners[1].Name, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding ShownigWeek.Dinners[2].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding ShownigWeek.Dinners[3].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding ShownigWeek.Dinners[4].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="3" Text="{Binding ShownigWeek.Dinners[5].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="3" Text="{Binding ShownigWeek.Dinners[6].Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding  MealFillings[2], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding  MealFillings[5], UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding  MealFillings[8], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding  MealFillings[11], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding  MealFillings[14], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="3" Text="{Binding  MealFillings[17], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="7" Grid.Column="3" Text="{Binding  MealFillings[20], UpdateSourceTrigger=PropertyChanged}"></TextBox>
     </Grid>
 </UserControl>
