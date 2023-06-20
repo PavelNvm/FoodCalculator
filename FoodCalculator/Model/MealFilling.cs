@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodCalculator.BusinessLogicClasses
+namespace FoodCalculator.Model
 {
     public class MealFilling : INotifyPropertyChanged
     {
