@@ -18,6 +18,12 @@ namespace FoodCalculator.Model
         public ObservableCollection<Food> FoodTypeList { get; set; } = new();
         public List<Food> FoodList { get; set; } = new();
         public int Day_Id { get; set; }
+
+        public MealFilling(string type) 
+        {
+            Type=type;
+        }
+
         public void AddFood(Food food)
 
         {
