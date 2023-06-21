@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodCalculator.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace FoodCalculator.Stores
     {
         private ObservableCollection<Food> FoodList { get; set; } = new();
         private ObservableCollection<string> FoodTypes { get; set; }
+        public Tuple<string[], string[], string[]>[] SetedTypes;
+
         public DataStore() 
         {
             GetFoodListFromDB();
@@ -43,11 +46,11 @@ namespace FoodCalculator.Stores
         }
         void popa()
         {
-            FoodList.Add(new Food() { Id = 0, Name = "kaWa", Type = "KaWa" });
-            FoodList.Add(new Food() { Id = 1, Name = "eggs", Type = "Eggs" });
-            FoodList.Add(new Food() { Id = 2, Name = "kotleta", Type = "Main", Portions = 3 });
-            FoodList.Add(new Food() { Id = 3, Name = "seledka pod shuboi", Type = "Salad" });
-            FoodList.Add(new Food() { Id = 4, Name = "jarennaya chicken", Type = "Main", Portions = 4 });
+            FoodList.Add(new Food() { Id = 0, Name = "kaWa", Type = "raz" });
+            FoodList.Add(new Food() { Id = 1, Name = "eggs", Type = "raz" });
+            FoodList.Add(new Food() { Id = 2, Name = "kotleta", Type = "dva", Portions = 3 });
+            FoodList.Add(new Food() { Id = 3, Name = "seledka pod shuboi", Type = "dva" });
+            FoodList.Add(new Food() { Id = 4, Name = "jarennaya chicken", Type = "dva", Portions = 4 });
             FoodList.Add(new Food() { Id = 5, Name = "Winters salad", Type = "Salad" });
             //FoodList.Add(new Food() { Id = 6, Name = "rice", Type = "Garnish", Portions = 2 });
             //FoodList.Add(new Food() { Id = 7, Name = "kartoxa", Type = "Garnish", Portions = 2 });

@@ -1,4 +1,5 @@
 ﻿using FoodCalculator.Commands;
+using FoodCalculator.Model;
 using FoodCalculator.Stores;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace FoodCalculator.ViewModels
     {        
         public NavigationStore NavigationStore { get; set; }
         public DataStore DataStore { get; set; }
+        private Calculator Calculator;
         public ICommand NavigateToSettings { get; set; }
         public ICommand NavigateToAddFood { get; set; }
         public ICommand CalculateFoodCommand { get; set; }
@@ -27,6 +29,7 @@ namespace FoodCalculator.ViewModels
         //index 0-2 is for day 1
         //index 3-5 is for day 2 etc
         public ObservableCollection<string> MealFillings { get; set; } = new ObservableCollection<string>();
+        public Week WeekForDisplaying { get; set; }
         public CalculatorViewModel(NavigationStore navigationStore,DataStore dataStore) 
         {
             
@@ -34,10 +37,12 @@ namespace FoodCalculator.ViewModels
             DataStore = dataStore;            
             NavigateToSettings = new NavigateCommand<SettingsViewModel>(NavigationStore, () =>new SettingsViewModel(NavigationStore, DataStore));
             NavigateToAddFood = new NavigateCommand<AddFoodViewModel>(NavigationStore,()=> new AddFoodViewModel(NavigationStore,DataStore));
+            Calculator = new Calculator(WeekForDisplaying, DataStore.GetFoodList(), DataStore.SetedTypes, dataStore.GetFoodTypes());
             CalculateFoodCommand = new ButtonCommand(obj => 
             {
+                Calculator.Calculate();
                 Random rnd = new Random();
-                testik(rnd.Next(100));                
+                testik(rnd.Next(100));
                 
             });
         }

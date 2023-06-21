@@ -1,4 +1,5 @@
 ﻿using FoodCalculator.Commands;
+using FoodCalculator.Model;
 using FoodCalculator.Stores;
 using System;
 using System.Collections.Generic;

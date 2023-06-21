@@ -1,4 +1,5 @@
 ﻿using FoodCalculator.Commands;
+using FoodCalculator.Model;
 using FoodCalculator.Stores;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace FoodCalculator.ViewModels
             FoodTypes = DataStore.GetFoodTypes();
 
             
-            UpdateFoodTypes();
+            //UpdateFoodTypes();
 
             AddNewType = new ButtonCommand(obj =>
             {
@@ -64,22 +65,21 @@ namespace FoodCalculator.ViewModels
                 FoodTypes.Remove((string)obj);
             });
         }
-        void UpdateFoodTypes()
-        {
-            foreach (Food f in BreakfastFoodTypeList)
-            {
-                f.FoodTypes = FoodTypes;
-            }
-            foreach (Food f in LunchFoodTypeList)
-            {
-                f.FoodTypes = FoodTypes;
-            }
-            foreach (Food f in DinnerFoodTypeList)
-            {
-                f.FoodTypes = FoodTypes;
-            }
-
-        }
+        //void UpdateFoodTypes()
+        //{
+        //    foreach (Food f in BreakfastFoodTypeList)
+        //    {
+        //        f.FoodTypes = FoodTypes;
+        //    }
+        //    foreach (Food f in LunchFoodTypeList)
+        //    {
+        //        f.FoodTypes = FoodTypes;
+        //    }
+        //    foreach (Food f in DinnerFoodTypeList)
+        //    {
+        //        f.FoodTypes = FoodTypes;
+        //    }
+        //}
         public void ChangeFoodquant(int quant, ObservableCollection<Food> FL)
         {
             while (FL.Count != quant)
@@ -94,7 +94,7 @@ namespace FoodCalculator.ViewModels
                     FL.Last().Id = FL[^2].Id + 1;
                 }
             }
-            UpdateFoodTypes();
+            //UpdateFoodTypes();
         }
     }
 }
