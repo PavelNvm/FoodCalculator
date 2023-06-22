@@ -32,6 +32,7 @@ namespace FoodCalculator.Model
         public void Calculate()
         {
             Random rnd = new Random();
+            WeekForCalculating.ClearAllFood();
             for(int i=0; i<SetedTypes.Length; i++)
             {
                 for(int j = 0; j < SetedTypes[i].Item1.Length; j++)

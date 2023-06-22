@@ -19,6 +19,7 @@ namespace FoodCalculator.Stores
         {
             GetFoodListFromDB();
             GetFoodTypesFromDB();
+            GetSettedTypesFromDB();
         }
         public ObservableCollection<string> GetFoodTypes()
         {
@@ -35,6 +36,14 @@ namespace FoodCalculator.Stores
         private void GetFoodTypesFromDB()
         {
             FoodTypes = new ObservableCollection<string>() {"raz","dva" };
+        }
+        private void GetSettedTypesFromDB()
+        {
+            SetedTypes = new Tuple<string[], string[], string[]>[7];
+            for(int i = 0; i < 7; i++)
+            {
+                SetedTypes[i] = new Tuple<string[], string[], string[]>( new string[3] { "raz", "dva", "dva" }, new string[3] { "raz", "raz", "raz" }, new string[3] { "dva", "dva", "dva" });
+            }
         }
         public void AddFood(Food food)
         {

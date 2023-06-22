@@ -29,7 +29,7 @@ namespace FoodCalculator.ViewModels
         //index 0-2 is for day 1
         //index 3-5 is for day 2 etc
         public ObservableCollection<string> MealFillings { get; set; } = new ObservableCollection<string>();
-        public Week WeekForDisplaying { get; set; }
+        public Week WeekForDisplaying { get; set; } = new Week();
         public CalculatorViewModel(NavigationStore navigationStore,DataStore dataStore) 
         {
             
@@ -45,6 +45,7 @@ namespace FoodCalculator.ViewModels
                 testik(rnd.Next(100));
                 
             });
+            
         }
         
         private async void  testik (int mn)

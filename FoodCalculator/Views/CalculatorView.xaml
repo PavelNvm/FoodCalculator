@@ -104,29 +104,29 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Grid.Row="0" Content="Show Current Week" Command="{Binding  Path=ShowCurrentWeekCommand}"/>
             <Button Grid.Column="4" Grid.Row="0" Content="Show Next Week" Command="{Binding  Path=ShowNextWeekCommand}"/>
-        </Grid>        
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding MealFillings[0], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding MealFillings[3], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding MealFillings[6], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding MealFillings[9], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding MealFillings[12], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding MealFillings[15], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding MealFillings[18], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </Grid>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding WeekForDisplaying.DaysOfTheWeek[0].BreakFast.OutputValue, UpdateSourceTrigger = PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding WeekForDisplaying.DaysOfTheWeek[1].BreakFast.OutputValue, UpdateSourceTrigger = PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding WeekForDisplaying.DaysOfTheWeek[2].BreakFast.OutputValue, UpdateSourceTrigger = PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding WeekForDisplaying.DaysOfTheWeek[3].BreakFast.OutputValue, UpdateSourceTrigger = PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding WeekForDisplaying.DaysOfTheWeek[4].BreakFast.OutputValue, UpdateSourceTrigger = PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding WeekForDisplaying.DaysOfTheWeek[5].BreakFast.OutputValue, UpdateSourceTrigger = PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding WeekForDisplaying.DaysOfTheWeek[6].BreakFast.OutputValue, UpdateSourceTrigger = PropertyChanged}"></TextBox>
 
-        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding MealFillings[1], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding MealFillings[4], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding MealFillings[7], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding MealFillings[10], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding MealFillings[13], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding MealFillings[16], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="2" Text="{Binding MealFillings[19], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding WeekForDisplaying.DaysOfTheWeek[0].Lunch.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding WeekForDisplaying.DaysOfTheWeek[1].Lunch.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding WeekForDisplaying.DaysOfTheWeek[2].Lunch.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding WeekForDisplaying.DaysOfTheWeek[3].Lunch.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding WeekForDisplaying.DaysOfTheWeek[4].Lunch.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding WeekForDisplaying.DaysOfTheWeek[5].Lunch.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="7" Grid.Column="2" Text="{Binding WeekForDisplaying.DaysOfTheWeek[6].Lunch.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding  MealFillings[2], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding  MealFillings[5], UpdateSourceTrigger=PropertyChanged}" ></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding  MealFillings[8], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding  MealFillings[11], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding  MealFillings[14], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="3" Text="{Binding  MealFillings[17], UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="3" Text="{Binding  MealFillings[20], UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding WeekForDisplaying.DaysOfTheWeek[0].Dinner.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding WeekForDisplaying.DaysOfTheWeek[1].Dinner.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding WeekForDisplaying.DaysOfTheWeek[2].Dinner.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding WeekForDisplaying.DaysOfTheWeek[3].Dinner.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding WeekForDisplaying.DaysOfTheWeek[4].Dinner.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="3" Text="{Binding WeekForDisplaying.DaysOfTheWeek[5].Dinner.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="7" Grid.Column="3" Text="{Binding WeekForDisplaying.DaysOfTheWeek[6].Dinner.OutputValue, UpdateSourceTrigger=PropertyChanged}"></TextBox>
     </Grid>
 </UserControl>
