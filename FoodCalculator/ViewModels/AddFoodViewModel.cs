@@ -34,7 +34,7 @@ namespace FoodCalculator.ViewModels
             
         }
         public ObservableCollection<Food> FoodList => DataStore.GetFoodList();
-        public ObservableCollection<string> FoodTypes=>DataStore.GetFoodTypes();
+        public ObservableCollection<string> FoodTypes => DataStore.GetFoodTypes();
         
     }
 }

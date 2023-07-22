@@ -59,8 +59,8 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Add"  FontSize="25" Grid.Column="2" Margin="5 5 0 5" Command="{Binding AddNewType}" BorderBrush="DarkGray"/>
-                <TextBox Margin="0 5"  x:Name="NewFoodType" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding Type}"/>
+                <Button Content="Add"  FontSize="25" Grid.Column="2" Margin="5 5 0 5" Command="{Binding AddNewType}" CommandParameter="{Binding  Text, ElementName=NewFoodType}" BorderBrush="DarkGray"/>
+                <TextBox Margin="0 5"  x:Name="NewFoodType" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
                 <ListBox HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding FoodTypes}" FontSize="25"  VerticalContentAlignment="Center">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -87,10 +87,10 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="Breakfast" FontSize="25" />
                 <ComboBox x:Name="QoantityInBreakFastMealFilling" Margin="0 5" Grid.Column="1" SelectedIndex="0" HorizontalContentAlignment="Center" FontSize="25" ItemsSource="{Binding MaxMealFillingFoodQuantity}" SelectedValue="{Binding BreakfastFoodQuantity}"/>
-                <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2"  ItemsSource="{Binding BreakfastFoodTypeList,UpdateSourceTrigger=PropertyChanged}">
+                <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2"  ItemsSource="{Binding BreakfastFoodTypeList}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <ComboBox SelectedIndex="0"  VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  ItemsSource="{Binding FoodTypes}" SelectedValue="{Binding Type}">
+                            <ComboBox SelectedIndex="0"  VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  ItemsSource="{Binding  Path=DataContext.FoodTypes,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" SelectedValue="{Binding Type}">
                             </ComboBox>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

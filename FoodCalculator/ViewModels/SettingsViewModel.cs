@@ -20,7 +20,7 @@ namespace FoodCalculator.ViewModels
         public NavigationStore NavigationStore { get; set; }
         public DataStore DataStore { get; set; }
         public ObservableCollection<string> FoodTypes { get; set; }
-        public ObservableCollection<int> MaxMealFillingFoodQuantity { get; set; } = new ObservableCollection<int>() { 1, 2, 3, 4, 5, 6 };
+        public ObservableCollection<int> MaxMealFillingFoodQuantity { get; set; } = new ObservableCollection<int>() { 1, 2, 3, 4, 5, 6 }; 
 
         public string? Type { get { return type; } set { if (value != null) { type = value; OnPropertyChanged(nameof(Type)); } } }
         private string? type;
@@ -34,7 +34,7 @@ namespace FoodCalculator.ViewModels
         public ObservableCollection<Food> LunchFoodTypeList { get; set; } = new ObservableCollection<Food>() { new Food() { Id = 0 } };
 
 
-        public int DinnerFoodQuantity { get { return DinnerFoodTypeList.Count; } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DinnerFoodTypeList); OnPropertyChanged(nameof(DinnerFoodQuantity)); } } }
+        public int DinnerFoodQuantity { get { return DinnerFoodTypeList.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DinnerFoodTypeList); OnPropertyChanged(nameof(DinnerFoodQuantity)); } } }
         public ObservableCollection<Food> DinnerFoodTypeList { get; set; } = new ObservableCollection<Food>() { new Food() { Id = 0 } };
         public SettingsViewModel(NavigationStore navigationStore, DataStore dataStore)
         {
@@ -49,15 +49,14 @@ namespace FoodCalculator.ViewModels
 
             AddNewType = new ButtonCommand(obj =>
             {
-                if (Type == "" || Type == null)
-                    return;
-                bool Exist = false;
-                foreach (string f in FoodTypes)
-                    if (f == Type)
-                    { Exist = true; }
-                if (!Exist)
-                    FoodTypes.Add(Type);
-                Type = "";
+                string? input = obj as string;
+            if (input != null&&input!="")
+                {
+                    if(!FoodTypes.Contains(input))
+                    {
+                        FoodTypes.Add(input);
+                    }
+                }
 
             });
             RemoveType = new ButtonCommand(obj =>
