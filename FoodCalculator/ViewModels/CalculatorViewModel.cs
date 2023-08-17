@@ -37,7 +37,7 @@ namespace FoodCalculator.ViewModels
             DataStore = dataStore;            
             NavigateToSettings = new NavigateCommand<SettingsViewModel>(NavigationStore, () =>new SettingsViewModel(NavigationStore, DataStore));
             NavigateToAddFood = new NavigateCommand<AddFoodViewModel>(NavigationStore,()=> new AddFoodViewModel(NavigationStore,DataStore));
-            Calculator = new Calculator(WeekForDisplaying, DataStore.GetFoodList(), DataStore.SetedTypes, dataStore.GetFoodTypes());
+            Calculator = new Calculator(WeekForDisplaying, DataStore.GetFoodList(), DataStore.DayTemplates, dataStore.GetFoodTypes());
             CalculateFoodCommand = new ButtonCommand(obj => 
             {
                 Calculator.Calculate();

@@ -19,6 +19,18 @@ namespace FoodCalculator.Model
         public DayTemplate() 
         {            
         }
+        public DayTemplate(string a,string b, string c)
+        {
+            Breakfast.Add(new StringWrapper(a));
+            Breakfast.Add(new StringWrapper(b));
+            Breakfast.Add(new StringWrapper(c));
+            Lunch.Add(new StringWrapper(a));
+            Lunch.Add(new StringWrapper(b));
+            Lunch.Add(new StringWrapper(c));
+            Dinner.Add(new StringWrapper(a));
+            Dinner.Add(new StringWrapper(b));
+            Dinner.Add(new StringWrapper(c));
+        }
         public void equate(DayTemplate source)
         {
             Breakfast.Clear();

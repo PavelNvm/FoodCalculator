@@ -5,10 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewmodels="clr-namespace:FoodCalculator.ViewModels"
              xmlns:local="clr-namespace:FoodCalculator.Views"
+             xmlns:converter="clr-namespace:FoodCalculator.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="505" d:DesignWidth="800"
              Background="White">
-    <UserControl.Resources>        
+    <UserControl.Resources>
+        <converter:BoolToBackgroundColorConverter x:Key="BoolToBackgroundConverter"/>
         <Style TargetType="ListBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
@@ -36,21 +38,64 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button  VerticalAlignment="Top" HorizontalAlignment="Left" MaxHeight="24" MaxWidth="24" Margin="10 5 0 0" BorderThickness="0" Command="{Binding NavigateToCalculator}" Style="{StaticResource TransparentButton}">
+        <Button  VerticalAlignment="Top" HorizontalAlignment="Left" MaxHeight="24" MaxWidth="24" Margin="10 5 0 0" BorderThickness="0" Command="{Binding SaveAndNavigateCommand}" Style="{StaticResource TransparentButton}">
             <Grid Background="Transparent" Margin="3" >
                 <Viewbox>
                     <Path Fill="Gray" Stretch="Fill"   VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Data="M459 777 258 576l201-201 18.5 18.5L295 576l182.5 182.5L459 777Zm224.5 0-201-201 201-201 18.5 18.5L519.5 576 702 758.5 683.5 777Z"/>
                 </Viewbox>
             </Grid>
-        </Button>
-        <Grid   Grid.Row="1" Margin="10 0 15 10">
+        </Button>        
+        <Grid   Grid.Row="1"  Margin="10 0 15 10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid x:Name="FoodTypesZone" Margin="10 0 5 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="1" Grid.ColumnSpan="3">                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" FontSize="16" Content="Apply to each day" Command="{Binding ApplyToEachDayCommand}"/>
+                    <Button Grid.Column="1" FontSize="16" Content="Copy" Command="{Binding CopyDayCommand}"/>
+                    <Button Grid.Column="2" FontSize="16" Content="Paste" Command="{Binding PasteDayCommand}"/>
+                    <Button Grid.Column="3" FontSize="16" Content="Random" Command="{Binding RandomCommand}"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" FontSize="16" Content="MON" Command="{Binding ChooseDayCommand}" CommandParameter="0" Background="{Binding Path=IsDaySelected[0],Converter={StaticResource BoolToBackgroundConverter}}" />
+                    <Button Grid.Column="1" FontSize="16" Content="TUE" Command="{Binding ChooseDayCommand}" CommandParameter="1" Background="{Binding Path=IsDaySelected[1],Converter={StaticResource BoolToBackgroundConverter}}" />
+                    <Button Grid.Column="2" FontSize="16" Content="WED" Command="{Binding ChooseDayCommand}" CommandParameter="2" Background="{Binding Path=IsDaySelected[2],Converter={StaticResource BoolToBackgroundConverter}}" />
+                    <Button Grid.Column="3" FontSize="16" Content="THU" Command="{Binding ChooseDayCommand}" CommandParameter="3" Background="{Binding Path=IsDaySelected[3],Converter={StaticResource BoolToBackgroundConverter}}" />
+                    <Button Grid.Column="4" FontSize="16" Content="FRI" Command="{Binding ChooseDayCommand}" CommandParameter="4" Background="{Binding Path=IsDaySelected[4],Converter={StaticResource BoolToBackgroundConverter}}" />
+                    <Button Grid.Column="5" FontSize="16" Content="SAT" Command="{Binding ChooseDayCommand}" CommandParameter="5" Background="{Binding Path=IsDaySelected[5],Converter={StaticResource BoolToBackgroundConverter}}" />
+                    <Button Grid.Column="6" FontSize="16" Content="SUN" Command="{Binding ChooseDayCommand}" CommandParameter="6" Background="{Binding Path=IsDaySelected[6],Converter={StaticResource BoolToBackgroundConverter}}" />
+                </Grid>
+
+
+
+            </Grid>
+            <Grid x:Name="FoodTypesZone" Grid.RowSpan="2" Margin="10 0 5 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
@@ -60,7 +105,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Content="Add"  FontSize="25" Grid.Column="2" Margin="5 5 0 5" Command="{Binding AddNewType}" CommandParameter="{Binding  Text, ElementName=NewFoodType}" BorderBrush="DarkGray"/>
-                <TextBox Margin="0 5"  x:Name="NewFoodType" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                <TextBox Margin="0 5"  x:Name="NewFoodType" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter"  Command="{Binding AddNewType}" CommandParameter="{Binding  Text, ElementName=NewFoodType}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <ListBox HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding FoodTypes}" FontSize="25"  VerticalContentAlignment="Center">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -76,7 +125,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
-            <Grid  x:Name="Breakfast" Margin="5 0" Grid.Column="1" >
+            <Grid  x:Name="Breakfast" Grid.Row="1" Margin="5 0" Grid.Column="1" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
@@ -86,17 +135,17 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="Breakfast" FontSize="25" />
-                <ComboBox x:Name="QoantityInBreakFastMealFilling" Margin="0 5" Grid.Column="1" SelectedIndex="0" HorizontalContentAlignment="Center" FontSize="25" ItemsSource="{Binding MaxMealFillingFoodQuantity}" SelectedValue="{Binding BreakfastFoodQuantity}"/>
-                <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2"  ItemsSource="{Binding BreakfastFoodTypeList}">
+                <ComboBox x:Name="QoantityInBreakFastMealFilling" Margin="0 5" Grid.Column="1" HorizontalContentAlignment="Center" FontSize="25" ItemsSource="{Binding MaxMealFillingFoodQuantity}" SelectedValue="{Binding BreakfastFoodQuantity}"/>
+                <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2"  ItemsSource="{Binding DayForDisplaying.Breakfast}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <ComboBox SelectedIndex="0"  VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  ItemsSource="{Binding  Path=DataContext.FoodTypes,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" SelectedValue="{Binding Type}">
+                            <ComboBox  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Height="45" VerticalAlignment="Top" SelectedItem="{Binding Path=Value}" ItemsSource="{Binding Path=DataContext.FoodTypes,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" >
                             </ComboBox>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
-            <Grid x:Name="Lunch" Grid.Column="2" Margin="5 0">
+            <Grid x:Name="Lunch" Grid.Row="1" Grid.Column="2" Margin="5 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
@@ -107,19 +156,19 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="Lunch" FontSize="25" />
-                <ComboBox x:Name="QoantityInLunchMealFilling" Grid.Column="1" SelectedIndex="0" Margin="0 5" HorizontalContentAlignment="Center" FontSize="25"  VerticalAlignment="Top" ItemsSource="{Binding MaxMealFillingFoodQuantity}" SelectedValue="{Binding LunchFoodQuantity}"/>
+                <ComboBox x:Name="QoantityInLunchMealFilling" Grid.Column="1"  Margin="0 5" HorizontalContentAlignment="Center" FontSize="25"   ItemsSource="{Binding MaxMealFillingFoodQuantity}" SelectedValue="{Binding LunchFoodQuantity}"/>
 
-                <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding LunchFoodTypeList,UpdateSourceTrigger=PropertyChanged}">
+                <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding DayForDisplaying.Lunch}">
                     <ListBox.ItemTemplate >
                         <DataTemplate>
-                            <ComboBox SelectedIndex="0"  VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  ItemsSource="{Binding FoodTypes }" SelectedValue="{Binding Type}"  >
+                            <ComboBox VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  SelectedItem="{Binding Path=Value}"  ItemsSource="{Binding Path=DataContext.FoodTypes,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"  >
                             </ComboBox>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
 
             </Grid>
-            <Grid  x:Name="Dinner" Grid.Column="3" Margin="5 0 5 0">
+            <Grid  x:Name="Dinner" Grid.Row="1" Grid.Column="3" Margin="5 0 5 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
@@ -130,15 +179,13 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="Dinner" FontSize="25" />
-                <ComboBox x:Name="QoantityInDinnerMealFilling" Grid.Column="1" SelectedIndex="0" Margin="0 5" HorizontalContentAlignment="Center" FontSize="25"  ItemsSource="{Binding MaxMealFillingFoodQuantity}" SelectedValue="{Binding DinnerFoodQuantity}"/>
+                <ComboBox x:Name="QoantityInDinnerMealFilling" Grid.Column="1" Margin="0 5" HorizontalContentAlignment="Center" FontSize="25"  ItemsSource="{Binding MaxMealFillingFoodQuantity}" SelectedValue="{Binding DinnerFoodQuantity}"/>
 
-                <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding DinnerFoodTypeList,UpdateSourceTrigger=PropertyChanged}">
+                <ListBox  Grid.Row="1"  HorizontalContentAlignment="Stretch"  Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding DayForDisplaying.Dinner}">
                     <ListBox.ItemTemplate >
                         <DataTemplate>
-
-                            <ComboBox SelectedIndex="0"  VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  ItemsSource="{Binding FoodTypes }" SelectedValue="{Binding Type}"  >
+                            <ComboBox VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" FontSize="25" Height="45"   VerticalAlignment="Top"  SelectedItem="{Binding Path=Value}"  ItemsSource="{Binding Path=DataContext.FoodTypes,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"  >
                             </ComboBox>
-
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:FoodCalculator.ViewModels"
         xmlns:local="clr-namespace:FoodCalculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800" Background="White">
+        Title="MainWindow" Height="505" Width="800" Background="White">
     <Grid MaxWidth="800" MaxHeight="500">
     <ContentControl Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>

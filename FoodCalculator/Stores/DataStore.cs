@@ -13,7 +13,7 @@ namespace FoodCalculator.Stores
     {
         private ObservableCollection<Food> FoodList { get; set; } = new();
         private ObservableCollection<string> FoodTypes { get; set; }
-        public Tuple<string[], string[], string[]>[] SetedTypes;
+        public ObservableCollection<DayTemplate> DayTemplates { get; set; }
 
         public DataStore() 
         {
@@ -39,10 +39,10 @@ namespace FoodCalculator.Stores
         }
         private void GetSettedTypesFromDB()
         {
-            SetedTypes = new Tuple<string[], string[], string[]>[7];
+            DayTemplates = new ObservableCollection<DayTemplate>();
             for(int i = 0; i < 7; i++)
             {
-                SetedTypes[i] = new Tuple<string[], string[], string[]>( new string[3] { "raz", "dva", "dva" }, new string[3] { "raz", "raz", "raz" }, new string[3] { "dva", "dva", "dva" });
+                DayTemplates.Add(new DayTemplate("raz", "raz", "raz"));
             }
         }
         public void AddFood(Food food)
