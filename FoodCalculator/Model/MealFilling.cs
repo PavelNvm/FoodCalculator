@@ -17,7 +17,7 @@ namespace FoodCalculator.Model
         //public int FoodQuantity { get { return FoodTypeList.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value); OnPropertyChanged("FoodQuantity"); } } }
         //public ObservableCollection<Food> FoodTypeList { get; set; } = new();
         public List<Food> FoodList { get { return _foodList; } 
-            set { _foodList = value;ChangeOutputValue(); } }
+            set { _foodList = value;UpdateOutputValue(); } }
         private List<Food> _foodList = new();
         public string OutputValue { get { return _outputValue; }set { _outputValue = value;OnPropertyChanged(nameof(OutputValue)); } }
         private string _outputValue;
@@ -25,9 +25,9 @@ namespace FoodCalculator.Model
         public MealFilling(string type) 
         {
             Type=type;
-            ChangeOutputValue();
+            UpdateOutputValue();
         }
-        private void ChangeOutputValue()
+        public void UpdateOutputValue()
         {
             if (FoodList.Count == 0)
             {

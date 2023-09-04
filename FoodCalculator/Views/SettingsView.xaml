@@ -105,7 +105,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Content="Add"  FontSize="25" Grid.Column="2" Margin="5 5 0 5" Command="{Binding AddNewType}" CommandParameter="{Binding  Text, ElementName=NewFoodType}" BorderBrush="DarkGray"/>
-                <TextBox Margin="0 5"  x:Name="NewFoodType" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" >
+                <TextBox Margin="0 5"  x:Name="NewFoodType" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding NewFoodType}" >
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter"  Command="{Binding AddNewType}" CommandParameter="{Binding  Text, ElementName=NewFoodType}"/>
                     </TextBox.InputBindings>

@@ -18,6 +18,8 @@ namespace FoodCalculator.ViewModels
         public ICommand NavigateToCalculator { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand AddCommand { get; set; }
+        public string NewFood { get { return _newFood; } set { _newFood = value; OnPropertyChanged(nameof(NewFood)); } }
+        private string _newFood;
         public AddFoodViewModel(NavigationStore navigationStore, DataStore dataStore)
         {
             NavigationStore = navigationStore;
@@ -30,6 +32,7 @@ namespace FoodCalculator.ViewModels
             AddCommand = new ButtonCommand(obj =>
             {
                 DataStore.AddFood(obj as Food);
+                NewFood = "";
             });
             
         }

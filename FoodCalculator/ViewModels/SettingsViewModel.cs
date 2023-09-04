@@ -35,6 +35,8 @@ namespace FoodCalculator.ViewModels
         public int BreakfastFoodQuantity { get { return DayForDisplaying.Breakfast.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Breakfast); OnPropertyChanged(nameof(BreakfastFoodQuantity));  } } }
         public int LunchFoodQuantity { get { return DayForDisplaying.Lunch.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Lunch);             OnPropertyChanged(nameof(LunchFoodQuantity)); } } }
         public int DinnerFoodQuantity { get { return DayForDisplaying.Dinner.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Dinner);          OnPropertyChanged(nameof(DinnerFoodQuantity)); } } }
+        public string NewFoodType { get { return _newFoodType; } set { _newFoodType = value; OnPropertyChanged(nameof(NewFoodType)); } }
+        private string _newFoodType;
         public SettingsViewModel(NavigationStore navigationStore, DataStore dataStore)
         {
             NavigationStore = navigationStore;
@@ -99,7 +101,7 @@ namespace FoodCalculator.ViewModels
                         FoodTypes.Add(input);
                     }
                 }
-
+                NewFoodType = "";
             });
             RemoveType = new ButtonCommand(obj =>
             {                
