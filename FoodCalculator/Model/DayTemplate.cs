@@ -19,7 +19,7 @@ namespace FoodCalculator.Model
         public DayTemplate() 
         {            
         }
-        public DayTemplate(string a,string b, string c)
+        public DayTemplate(string a,string b, string c)//TODO strange constructor
         {
             Breakfast.Add(new StringWrapper(a));
             Breakfast.Add(new StringWrapper(b));

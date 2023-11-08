@@ -14,8 +14,8 @@ namespace FoodCalculator.Model
         private  List<Food> FoodList { get; set; } = new List<Food>();
         private WeekParameters WeekParams { get; set; }
         private List<string> FoodTypes;
-        private Food[][] SortedFoods;
-        private Queue<Food>[] FoodQueue;
+        private Food[][] SortedFoods { get; set; }
+        private Queue<Food>[] FoodQueue;// TODO delete kall
         private bool[][] WasThisFoodUsedToRoll;
         ObservableCollection<DayTemplate> DayTemplates { get; set; }
         private Week WeekForCalculating;
@@ -42,12 +42,43 @@ namespace FoodCalculator.Model
         {
             if (WeekParams.IsCalculatable)
             {
+                List<Food> tempF = new();
+                int tempInt;
                 WeekForCalculating.ClearAllFood();
-                for (int i = 0; i < 7; i++)
+                for(int i = 0;i<FoodTypes.Count();i++)
                 {
-                    CreateListOfFoods(DayTemplates[i].Breakfast, WeekForCalculating.DaysOfTheWeek[i].BreakFast);
-                    CreateListOfFoods(DayTemplates[i].Lunch, WeekForCalculating.DaysOfTheWeek[i].Lunch);
-                    CreateListOfFoods(DayTemplates[i].Dinner, WeekForCalculating.DaysOfTheWeek[i].Dinner);
+                    FoodQueue[i] = CreateFoodQueueWithSpecificLength(i, WeekParams.AmmountOfEachType[i]);
+                }
+                for(int i = 0;i<7;i++)
+                {
+                    tempF.Clear();
+                    for(int j = 0;j< DayTemplates[i].Breakfast.Count();j++)
+                    {
+                        tempInt = FoodTypes.IndexOf(DayTemplates[i].Breakfast[j].Value);
+                        tempF.Add(FoodQueue[tempInt].Dequeue());                        
+                    }
+                    InputMF(WeekForCalculating.DaysOfTheWeek[i].Breakfast, tempF);
+
+
+
+                    tempF.Clear();
+                    for (int j = 0; j < DayTemplates[i].Lunch.Count(); j++)
+                    {
+                        tempInt = FoodTypes.IndexOf(DayTemplates[i].Lunch[j].Value);
+                        tempF.Add(FoodQueue[tempInt].Dequeue());
+                    }
+                    InputMF(WeekForCalculating.DaysOfTheWeek[i].Lunch, tempF);
+
+
+
+                    tempF.Clear();
+                    for (int j = 0; j < DayTemplates[i].Dinner.Count(); j++)
+                    {
+                        tempInt = FoodTypes.IndexOf(DayTemplates[i].Dinner[j].Value);
+                        tempF.Add(FoodQueue[tempInt].Dequeue());
+                    }
+                    InputMF(WeekForCalculating.DaysOfTheWeek[i].Dinner, tempF);
+
                 }
             }
             else
@@ -55,20 +86,41 @@ namespace FoodCalculator.Model
                 MessageBox.Show(WeekParams.ErrorMessage.ToString());
             }
         }
-        private void CreateListOfFoods(ObservableCollection<StringWrapper> listoftypes,MealFilling mf)
+        private Queue<Food> CreateFoodQueueWithSpecificLength(int foodTypeIndex,int length)
         {
-            List<Food> foodsForMF = new List<Food>();
-            foreach (var type in listoftypes)
+            List<Food> list = new List<Food>();
+            Queue<Food> res = new Queue<Food>();
+            int rndInd;
+            a:
+            list.Clear();
+            while (list.Count <length)
             {
-                int typeindex = FoodTypes.IndexOf(type.Value);
-                int foodindex = rnd.Next(SortedFoods[typeindex].Length);
-                if (SortedFoods[typeindex][foodindex].Portions==1)
+                b:
+                rndInd = rnd.Next(SortedFoods[foodTypeIndex].Length);
+                if(list.Count + SortedFoods[foodTypeIndex][rndInd].Portions <= length)
                 {
-                    foodsForMF.Add(SortedFoods[typeindex][foodindex]);
+                    for (int i = 0; i < SortedFoods[foodTypeIndex][rndInd].Portions; i++)
+                        list.Add(SortedFoods[foodTypeIndex][rndInd]);
                 }
+                else if (WeekParams.EveryPossiblePortionSizeOfEachType[foodTypeIndex].Any(s=>0<=length-(list.Count + s)))
+                {
+                    goto b;
+                }
+                else { goto a; }
             }
-            InputMF(mf, foodsForMF);
-        }
+            if(list.Count !=length)
+            {
+                goto a;
+            }
+            else
+            {
+                for (int i = 0;i < list.Count;i++)
+                {
+                    res.Enqueue(list[i]);
+                }
+            }            
+            return res;
+        }        
         private void InputMF(MealFilling mf,IEnumerable<Food> foods)
         {
             foreach (var food in foods)
@@ -82,7 +134,7 @@ namespace FoodCalculator.Model
             public List<Food> FoodList { get; set; }
             public List<StringWrapper> EveryFoodPiece { get; set; } = new List<StringWrapper>();
             public List<int> AmmountOfEachType { get; set; }
-            public List<bool> IsThereEnoughPolyportionalFood { get; set; } = new();//TODO: Убрать за ненадобностью
+            public List<int>[] EveryPossiblePortionSizeOfEachType { get; set; } 
             public bool IsCalculatable = true;
             public StringBuilder ErrorMessage { get; set; } = new StringBuilder("Not enough food with type: ");
             public WeekParameters(List<DayTemplate> dayTemplates,List<string> foodtypes, List<Food> foodList)
@@ -95,6 +147,7 @@ namespace FoodCalculator.Model
                     EveryFoodPiece.AddRange(dayTemplates[i].Dinner);
                 }
                 AmmountOfEachType = new List<int>();
+                EveryPossiblePortionSizeOfEachType = new List<int>[foodList.Count()];
                 for (int i = 0;i<foodtypes.Count();i++)
                 {                    
                     AmmountOfEachType.Add((from f in EveryFoodPiece
@@ -104,10 +157,9 @@ namespace FoodCalculator.Model
                     list.AddRange((from f in FoodList
                                   where f.Type.ToLower() == foodtypes[i].ToString().ToLower()
                                   select f.Portions).Distinct().ToList());
-                    
+                    EveryPossiblePortionSizeOfEachType[i] = list;
                     bool temp = false;
-                    IsThereEnoughFood(new Node(AmmountOfEachType.Last(), list), ref temp);  
-                    IsThereEnoughPolyportionalFood.Add(temp);
+                    IsThereEnoughFood(new Node(AmmountOfEachType.Last(), list), ref temp);                      
                     if(!temp)
                     {
                         IsCalculatable = false;

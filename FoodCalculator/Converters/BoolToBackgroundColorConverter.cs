@@ -16,10 +16,10 @@ namespace FoodCalculator.Converters
             if ((bool)value)
             {
                 {
-                    return new SolidColorBrush(Colors.Green);
+                    return new SolidColorBrush(Colors.DarkGray);
                 }
             }
-            return new SolidColorBrush(Colors.Red);
+            return new SolidColorBrush(Colors.LightGray);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
