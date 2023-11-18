@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace FoodCalculator.Models
+namespace FoodCalculator.DTOs
 {
-    public class DayModel
+    public class DayDTO
     {
+        [Key]
         public int Id { get; set; }
         public DateOnly Date { get; set; }
         public int BreakFast_Id { get; set; }

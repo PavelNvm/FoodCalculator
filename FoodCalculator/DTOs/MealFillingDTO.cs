@@ -4,11 +4,13 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace FoodCalculator.Models
+namespace FoodCalculator.DTOs
 {
-    public class MealFillingModel
+    public class MealFillingDTO
     {
+        [Key]
         public int ID { get; set; }
         public int MF_TypeID { get; set; }//tiny int in DB 0=Breakfast 1=Lunch 2=Dinner
         public string? FoodListOrder { get; set; }
