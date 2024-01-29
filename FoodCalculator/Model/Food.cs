@@ -20,6 +20,14 @@ namespace FoodCalculator.Model
         private int modifier;
         public int Id { get { return id; } set { if (value >= 0) { id = value; OnPropertyChanged("Id"); } } }
         private int id;
+        public Food(int ID,string name, string type, int modifier, int portions)
+        {
+            Id = ID;
+            Name = name;
+            Type = type;
+            Modifier = modifier;
+            Portions = portions;
+        }
         public Food(string name)
         {
             Name = name;

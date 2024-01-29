@@ -12,7 +12,7 @@ namespace FoodCalculator.DbContexts
     {
         public FoodCalculatorDbContext CreateDbContext(string[] args)
         {
-            DbContextOptions options = new DbContextOptionsBuilder().UseSqlServer("Data Source=FoodCalculator.db").Options;
+            DbContextOptions options = new DbContextOptionsBuilder().UseSqlite("Data Source=FoodCalculator.db").Options;
             return new FoodCalculatorDbContext(options);
         }
     }

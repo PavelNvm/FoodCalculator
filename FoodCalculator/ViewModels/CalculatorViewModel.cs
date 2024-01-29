@@ -34,7 +34,10 @@ namespace FoodCalculator.ViewModels
         private Week NextWeek { get; set; } = new Week();
         public CalculatorViewModel(NavigationStore navigationStore,DataStore dataStore) 
         {
-            WeekForDisplaying = new Week(curwek());
+            WeekForDisplaying = new Week();
+            CurrentWeek = new Week(curwek(0));
+            NextWeek = new Week(curwek(1));
+            WeekForDisplaying.equate(CurrentWeek);
             NavigationStore = navigationStore;
             DataStore = dataStore;            
             NavigateToSettings = new NavigateCommand<SettingsViewModel>(NavigationStore, () =>new SettingsViewModel(NavigationStore, DataStore));
@@ -42,31 +45,30 @@ namespace FoodCalculator.ViewModels
             Calculator = new Calculator(NextWeek, DataStore.GetFoodList(), DataStore.DayTemplates, dataStore.GetFoodTypes());
             CalculateFoodCommand = new ButtonCommand(obj => 
             {
-                Calculator.Calculate();
-                Random rnd = new Random();
-                testik(rnd.Next(100));
+                Calculator.Calculate();                
                 
             });
-            
+            ShowNextWeekCommand = new ButtonCommand(obj =>
+            {
+                WeekForDisplaying.equate(NextWeek);
+                Calculator = new Calculator(WeekForDisplaying, DataStore.GetFoodList(), DataStore.DayTemplates, dataStore.GetFoodTypes());
+
+            });
+            ShowCurrentWeekCommand = new ButtonCommand(obj => 
+            {
+                WeekForDisplaying.equate(CurrentWeek);
+                Calculator = new Calculator(WeekForDisplaying, DataStore.GetFoodList(), DataStore.DayTemplates, dataStore.GetFoodTypes());
+            });
         }
         
-        private async void  testik (int mn)
-        {
-            await Task.Run(() => 
-            {
-                MealFillings.Clear();
-                for (int i = mn; i < mn + 21; i++)
-                    MealFillings.Add(i.ToString());
-            });
-            
-        }
-        (DateOnly, DateOnly) curwek()
+        
+        (DateOnly, DateOnly) curwek(int offset)//offset in weeks
         {
             int day = Convert.ToInt32(DateTime.Now.DayOfWeek);
             DateOnly fd = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            fd = fd.AddDays(-day + 1);
+            fd = fd.AddDays(-day + 1 + 7 * offset);
             DateOnly sd = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            sd = sd.AddDays(7 - day);
+            sd = sd.AddDays(7 - day + 7 * offset);
 
 
             return (fd, sd);

@@ -11,10 +11,10 @@ namespace FoodCalculator.DTOs
     public class FoodDTO
     {
         [Key]
-        public int ID { get; set; }
-        public int FoodTypeID { get; set; }
+        public int ID { get; set; }        
         public int Portions { get; set; }
         public int Modifier { get; set; }
         public string? Name { get; set; }
+        public string? FoodType { get; set; }
     }
 }

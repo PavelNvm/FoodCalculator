@@ -23,6 +23,16 @@ namespace FoodCalculator.Model
             Lunch.ClearAllFood();
             Dinner.ClearAllFood();
         }
+        public void equate(Day day)
+        {
+            Date = day.Date;
+            Week_Id = day.Week_Id;
+            Id = day.Id;
+            Breakfast.equate(day.Breakfast);
+            Lunch.equate(day.Lunch);
+            Dinner.equate(day.Dinner);
+
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

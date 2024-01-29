@@ -149,68 +149,56 @@ namespace FoodCalculator.Model
                 AmmountOfEachType = new List<int>();
                 EveryPossiblePortionSizeOfEachType = new List<int>[foodList.Count()];
                 for (int i = 0;i<foodtypes.Count();i++)
-                {                    
-                    AmmountOfEachType.Add((from f in EveryFoodPiece
-                                           where f.ToString().ToLower() == foodtypes[i].ToString().ToLower()
-                                           select f).Count());
-                    List<int> list = new List<int>();
-                    list.AddRange((from f in FoodList
-                                  where f.Type.ToLower() == foodtypes[i].ToString().ToLower()
-                                  select f.Portions).Distinct().ToList());
-                    EveryPossiblePortionSizeOfEachType[i] = list;
-                    bool temp = false;
-                    IsThereEnoughFood(new Node(AmmountOfEachType.Last(), list), ref temp);                      
-                    if(!temp)
+                {
+                    try
                     {
-                        IsCalculatable = false;
-                        ErrorMessage.Append( foodtypes[i].ToString() + ", ");
+                        AmmountOfEachType.Add((from f in EveryFoodPiece
+                                               where f.ToString().ToLower() == foodtypes[i].ToString().ToLower()
+                                               select f).Count());
+                        List<int> list = new List<int>();
+                        list.AddRange((from f in FoodList
+                                       where f.Type.ToLower() == foodtypes[i].ToString().ToLower()
+                                       select f.Portions).Distinct().ToList());
+                        EveryPossiblePortionSizeOfEachType[i] = list;
+                        bool temp = false;
+                        IsThereEnoughFood(AmmountOfEachType.Last(), list, ref temp);
+                        if (!temp)
+                        {
+                            IsCalculatable = false;
+                            ErrorMessage.Append(foodtypes[i].ToString() + ", ");
+                        }
                     }
+                    catch
+                    { ErrorMessage = new StringBuilder("Not enough food with type: " + foodtypes[i].ToString()); }
+                    finally
+                    { }
                 }
                 ErrorMessage.Remove(ErrorMessage.Length-2, 2);
             }
 
-    
+
 
 
             #region BinaryTreeChecking
-            void IsThereEnoughFood(Node node, ref bool b)
+            void IsThereEnoughFood(int val, IEnumerable<int> values, ref bool a)
             {
-                if (b)
-                {
+                if (val == 0)
+                    a = true;
+                if (a)
                     return;
-                }
-                if (node.Nodes.Count == 0)
+                foreach (var value in values)
                 {
-                    if (node.Value == 0)
+                    if (val - value > 0)
                     {
-                        b = true;
-                        return;
+                        IsThereEnoughFood(val - value, values, ref a);
                     }
-                }
-                foreach (var nod in node.Nodes)
-                {
-                    IsThereEnoughFood(nod, ref b);
-                }
-            }
-            class Node
-            {
-                public List<Node> Nodes = new List<Node>();
-                public int Value;
-                public Node(int val, List<int> n)
-                {
-                    Value = val;
-                    if (Value > 0)
+                    else if (val - value == 0)
                     {
-                        CreateNodes(n);
+                        a = true;
                     }
+
                 }
-                public void CreateNodes(List<int> n)
-                {
-                    foreach (var num in n)
-                    {
-                        Nodes.Add(new Node((Value - num), n));
-                    }
-                }
+                return;
             }
             #endregion
         }

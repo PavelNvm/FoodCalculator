@@ -12,7 +12,7 @@ namespace FoodCalculator.Model
     public class MealFilling : INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public string? Type { get; set; }
+        public string? Type { get; set; } // Breakfast / Lunch / Dinner
         //public string? FoodListOrder { get; set; } = "";
         //public int FoodQuantity { get { return FoodTypeList.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value); OnPropertyChanged("FoodQuantity"); } } }
         //public ObservableCollection<Food> FoodTypeList { get; set; } = new();
@@ -31,7 +31,7 @@ namespace FoodCalculator.Model
         {
             if (FoodList.Count == 0)
             {
-                OutputValue = "asd";
+                OutputValue = "null";
                 return;
             }
             StringBuilder res = new StringBuilder();
@@ -94,6 +94,17 @@ namespace FoodCalculator.Model
         //    res.Remove(res.Length-3, 3);
         //    return res.ToString();
         //}
+        public void equate(MealFilling mealFilling)
+        {
+            Id = mealFilling.Id;
+            Day_Id = mealFilling.Day_Id;            
+            FoodList.Clear();
+            foreach (Food food in mealFilling.FoodList)
+            {
+                FoodList.Add(food);
+            }
+            UpdateOutputValue();
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

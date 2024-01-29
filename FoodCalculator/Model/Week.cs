@@ -35,6 +35,17 @@ namespace FoodCalculator.Model
         }
         public string WeekSpan { get { return FirstDay.ToString() + " - " + LastDay.ToString(); }  }
         
+        public void equate(Week week)
+        {
+            FirstDay = week.FirstDay; 
+            LastDay = week.LastDay;
+            Id = week.Id;
+            for (int i = 0;i<7;i++)
+            {
+                DaysOfTheWeek[i].equate(week.DaysOfTheWeek[i]);
+            }
+
+        }        
         internal void ClearAllFood()
         {
             for(int i=0;i<7;i++)
