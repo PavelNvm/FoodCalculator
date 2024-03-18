@@ -10,7 +10,7 @@ namespace FoodCalculator.DTOs
     public class FoodTypeDTO
     {
         [Key]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }
  

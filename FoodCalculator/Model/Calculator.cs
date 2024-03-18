@@ -146,6 +146,7 @@ namespace FoodCalculator.Model
                     EveryFoodPiece.AddRange(dayTemplates[i].Lunch);
                     EveryFoodPiece.AddRange(dayTemplates[i].Dinner);
                 }
+                
                 AmmountOfEachType = new List<int>();
                 EveryPossiblePortionSizeOfEachType = new List<int>[foodList.Count()];
                 for (int i = 0;i<foodtypes.Count();i++)

@@ -31,7 +31,7 @@ namespace FoodCalculator.Model
         {
             if (FoodList.Count == 0)
             {
-                OutputValue = "null";
+                OutputValue = "";
                 return;
             }
             StringBuilder res = new StringBuilder();

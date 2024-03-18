@@ -10,7 +10,7 @@ namespace FoodCalculator.Model
 {
     public class StringWrapper : INotifyPropertyChanged
     {
-        public string Value { get { return _value; } set { _value = value; OnPropertyChanged(nameof(Value)); } }
+        public string Value { get { return _value; } set { if (value == null) { _value = ""; } else { _value = value; }; OnPropertyChanged(nameof(Value)); } }
         private string _value;
 
         public StringWrapper(string value)

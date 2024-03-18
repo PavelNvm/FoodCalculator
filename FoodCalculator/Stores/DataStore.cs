@@ -15,15 +15,18 @@ namespace FoodCalculator.Stores
     {
         private readonly DB_Operator db_Operator;
         private ObservableCollection<Food> FoodList { get; set; } = new();
-        private ObservableCollection<string> FoodTypes { get; set; }
-        public ObservableCollection<DayTemplate> DayTemplates { get; set; }
+        private ObservableCollection<string> FoodTypes { get; set; } = new();
+        public ObservableCollection<DayTemplate> DayTemplates { get; set; } = new ObservableCollection<DayTemplate>();
+        public List<Day> Days { get; set; } = new();
+        public List<MealFilling> Meals { get; set; }
         public Week CurrentWeek { get; set; }
         public DataStore(DB_Operator Operator) 
         {
             db_Operator = Operator;
             GetFoodListFromDB();
-            GetFoodTypesFromDB();
-            GetSettedTypesFromDB();
+            GetFoodTypesFromDBAsync();
+            GetDaysFromDB();
+            GetSettingsFromDB();
             GetCurrentWeekFromDB();
         }
         public ObservableCollection<string> GetFoodTypes()
@@ -34,32 +37,57 @@ namespace FoodCalculator.Stores
         {
             return FoodList;
         }
-        public async Task<IEnumerable<Food>> GetAllFoodFromDBAsync()
-        {
-            return await db_Operator.GetAllFood();
-        }
+        
         private void GetFoodListFromDB()
         {
             var fl= GetAllFoodFromDBAsync();
             foreach (var food in fl.Result)
                 FoodList.Add(food);
-            //popa();
         }
-        private void GetFoodTypesFromDB()
+        private async Task<IEnumerable<Food>> GetAllFoodFromDBAsync()
         {
-            FoodTypes = new ObservableCollection<string>() {"raz","dva" };
+            return await db_Operator.GetAllFood();
         }
-        private void GetSettedTypesFromDB()
+        private async Task GetFoodTypesFromDBAsync()
         {
-            DayTemplates = new ObservableCollection<DayTemplate>();
-            for(int i = 0; i < 7; i++)
+            var ft = await db_Operator.GetFoodTypes();
+            foreach (var foodtype in ft)
             {
-                DayTemplates.Add(new DayTemplate("raz", "raz", "raz"));
-            }
+                FoodTypes.Add(foodtype);
+            }            
         }
+        
+        
         private void GetCurrentWeekFromDB()
         {
             CurrentWeek=null;
+        }
+        private void GetDaysFromDB()
+        {
+            var daylist = GetDaysFromDBAsync();
+            foreach (var day in daylist.Result)
+                Days.Add(day);
+
+        }
+        private async Task<IEnumerable<Day>> GetDaysFromDBAsync()
+        {
+            return await db_Operator.GetDays(Meals);
+            
+        }
+        public async Task UpdateSettingsInDB()
+        {
+            await db_Operator.UpdateSettings(DayTemplates.ToList());
+        }
+        public async Task GetSettingsFromDB()
+        {
+            var set = await db_Operator.GetSettings();
+            foreach (var setting in set)
+                DayTemplates.Add(setting);
+        }
+        public async Task AddType(string type)
+        {
+            await db_Operator.InsertFoodType(type);
+            FoodTypes.Add(type);
         }
         public async Task AddFood(Food food)
         {

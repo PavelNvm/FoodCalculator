@@ -11,6 +11,7 @@ namespace FoodCalculator.Model
 {
     public class DayTemplate : INotifyPropertyChanged
     {
+        public int DayNumber{get;set;}
         public ObservableCollection<StringWrapper> Breakfast { get;set; } = new ObservableCollection<StringWrapper>();
         public ObservableCollection<StringWrapper> Lunch { get; set; } = new ObservableCollection<StringWrapper>();
         public ObservableCollection<StringWrapper> Dinner { get;set; } = new ObservableCollection<StringWrapper>();

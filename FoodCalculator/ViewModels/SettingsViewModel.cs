@@ -32,11 +32,12 @@ namespace FoodCalculator.ViewModels
         private bool _isclipboard = false;
         public ObservableCollection<bool> IsDaySelected { get; set; } = new ObservableCollection<bool>() { true, false, false, false, false, false, false };
         public int SelectedDayIndex { get; set; }
-        public int BreakfastFoodQuantity { get { return DayForDisplaying.Breakfast.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Breakfast); OnPropertyChanged(nameof(BreakfastFoodQuantity));  } } }
-        public int LunchFoodQuantity { get { return DayForDisplaying.Lunch.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Lunch);             OnPropertyChanged(nameof(LunchFoodQuantity)); } } }
-        public int DinnerFoodQuantity { get { return DayForDisplaying.Dinner.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Dinner);          OnPropertyChanged(nameof(DinnerFoodQuantity)); } } }
+        public int BreakfastFoodQuantity { get { return DayForDisplaying.Breakfast.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Breakfast); OnPropertyChanged(nameof(BreakfastFoodQuantity));DataStore.UpdateSettingsInDB();  } } }
+        public int LunchFoodQuantity { get { return DayForDisplaying.Lunch.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Lunch);             OnPropertyChanged(nameof(LunchFoodQuantity));    DataStore.UpdateSettingsInDB();  } } }
+        public int DinnerFoodQuantity { get { return DayForDisplaying.Dinner.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Dinner);          OnPropertyChanged(nameof(DinnerFoodQuantity));   DataStore.UpdateSettingsInDB();  } } }
         public string NewFoodType { get { return _newFoodType; } set { _newFoodType = value; OnPropertyChanged(nameof(NewFoodType)); } }
-        private string _newFoodType;
+        private string _newFoodType;       
+
         public SettingsViewModel(NavigationStore navigationStore, DataStore dataStore)
         {
             NavigationStore = navigationStore;
@@ -98,7 +99,7 @@ namespace FoodCalculator.ViewModels
                 {
                     if(!FoodTypes.Contains(input))
                     {
-                        FoodTypes.Add(input);
+                        DataStore.AddType(input);
                     }
                 }
                 NewFoodType = "";
@@ -120,7 +121,7 @@ namespace FoodCalculator.ViewModels
                 {
                     FL.Add(new StringWrapper(FoodTypes[0]));
                 }
-            }            
+            }
         }
         
         private void UpdateQuantity()
