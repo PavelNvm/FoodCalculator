@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -15,9 +14,7 @@ namespace FoodCalculator.Migrations
                 name: "Days",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Date = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    Date = table.Column<string>(type: "TEXT", nullable: false),
                     BreakFast_Id = table.Column<int>(type: "INTEGER", nullable: false),
                     Lunch_Id = table.Column<int>(type: "INTEGER", nullable: false),
                     Dinner_Id = table.Column<int>(type: "INTEGER", nullable: false),
@@ -25,7 +22,7 @@ namespace FoodCalculator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Days", x => x.Id);
+                    table.PrimaryKey("PK_Days", x => x.Date);
                 });
 
             migrationBuilder.CreateTable(
@@ -49,10 +46,10 @@ namespace FoodCalculator.Migrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FoodType = table.Column<int>(type: "TEXT", nullable: false),
                     Portions = table.Column<int>(type: "INTEGER", nullable: false),
                     Modifier = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    FoodType = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,10 +73,10 @@ namespace FoodCalculator.Migrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    MF_TypeID = table.Column<int>(type: "INTEGER", nullable: false),
+                    MF_Type = table.Column<string>(type: "TEXT", nullable: false),
                     FoodListOrder = table.Column<string>(type: "TEXT", nullable: true),
                     FoodQuantity = table.Column<int>(type: "INTEGER", nullable: false),
-                    Day_Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    Day_Date = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

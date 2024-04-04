@@ -15,7 +15,7 @@ namespace FoodCalculator.DTOs
         public string MF_Type { get; set; }
         public string? FoodListOrder { get; set; }
         public int FoodQuantity { get; set; }
-        public int Day_Id { get; set; }
+        public string Day_Date { get; set; }
 
     }
 }

@@ -16,23 +16,30 @@ namespace FoodCalculator.Model
         public DateOnly LastDay { get { return lastDay; } set { lastDay = value; OnPropertyChanged(nameof(WeekSpan)); } }
         private DateOnly lastDay;
 
-        public Day[] DaysOfTheWeek { get; set; } = new Day[7] {new Day(), new Day(), new Day(), new Day(), new Day(), new Day(), new Day() };
-        public Week((DateOnly, DateOnly) a) 
+        public Day[] DaysOfTheWeek { get; set; } 
+        public Week((DateOnly, DateOnly) border) 
         {
-            FirstDay = a.Item1;
-            LastDay = a.Item2;
+            FirstDay = border.Item1;
+            LastDay = border.Item2;
+            DaysOfTheWeek = new Day[7];
             for (int i =0;i<7;i++)
             {
+                DaysOfTheWeek[i] = new Day(FirstDay.AddDays(i).ToString());
                 DaysOfTheWeek[i].Week_Id = Id;
             }
         }
-        public Week()
+        public Week((DateOnly, DateOnly) border, List<Day> days)
         {
+            FirstDay = border.Item1;
+            LastDay = border.Item2;
+            DaysOfTheWeek = new Day[7];
             for (int i = 0; i < 7; i++)
             {
+                DaysOfTheWeek[i] = days[i];
                 DaysOfTheWeek[i].Week_Id = Id;
             }
         }
+
         public string WeekSpan { get { return FirstDay.ToString() + " - " + LastDay.ToString(); }  }
         
         public void equate(Week week)

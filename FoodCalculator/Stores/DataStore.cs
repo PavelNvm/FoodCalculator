@@ -18,16 +18,28 @@ namespace FoodCalculator.Stores
         private ObservableCollection<string> FoodTypes { get; set; } = new();
         public ObservableCollection<DayTemplate> DayTemplates { get; set; } = new ObservableCollection<DayTemplate>();
         public List<Day> Days { get; set; } = new();
-        public List<MealFilling> Meals { get; set; }
+        public List<MealFilling> Meals { get; set; } = new List<MealFilling>();
         public Week CurrentWeek { get; set; }
+        public Week NextWeek { get; set; }
+        public bool IsCurrentWeekInDB { get; set; }
+        public bool IsNextWeekInDB { get; set; }
+        public (DateOnly,DateOnly) CurrentWeekBorders { get; set; }
+        public (DateOnly,DateOnly) NextWeekBorders { get; set; }
         public DataStore(DB_Operator Operator) 
         {
-            db_Operator = Operator;
-            GetFoodListFromDB();
-            GetFoodTypesFromDBAsync();
-            GetDaysFromDB();
-            GetSettingsFromDB();
+            CurrentWeekBorders = Algorithms.WeekBorders(0);
+            NextWeekBorders = Algorithms.WeekBorders(1);
+                db_Operator = Operator;
+            CheckForWeeksInDB();
+            StartAsync();
+        }
+        private async void StartAsync()
+        {
+            await GetSettingsFromDB();
+            await GetFoodTypesFromDBAsync();
+            GetFoodListFromDB();   
             GetCurrentWeekFromDB();
+            GetNextWeekFromDB();
         }
         public ObservableCollection<string> GetFoodTypes()
         {
@@ -56,11 +68,40 @@ namespace FoodCalculator.Stores
                 FoodTypes.Add(foodtype);
             }            
         }
-        
-        
+        public async Task RemoveFoodTypeFromDBAsync(string type)
+        {
+            await db_Operator.RemoveFoodType(type);
+        }
+        private void CheckForWeeksInDB()
+        {
+            (bool,bool) a =db_Operator.CheckForWeeks(CurrentWeekBorders, NextWeekBorders).Result;
+            IsCurrentWeekInDB = a.Item1;
+            IsNextWeekInDB = a.Item2;
+
+        }
         private void GetCurrentWeekFromDB()
         {
-            CurrentWeek=null;
+            if (IsCurrentWeekInDB)
+            {
+                Meals.AddRange( db_Operator.GetMealFillingsByDate(FoodList.ToList(), CurrentWeekBorders).Result.ToList());
+                CurrentWeek = new Week(CurrentWeekBorders, db_Operator.GetSpecificDays(Meals, CurrentWeekBorders).Result.ToList());
+            }
+            else
+            CurrentWeek=new Week(CurrentWeekBorders);
+        }
+        private void GetNextWeekFromDB()
+        {
+            if (IsNextWeekInDB)
+            {
+                Meals.AddRange(db_Operator.GetMealFillingsByDate(FoodList.ToList(), NextWeekBorders).Result.ToList());
+                NextWeek = new Week(NextWeekBorders, db_Operator.GetSpecificDays(Meals, NextWeekBorders).Result.ToList());
+            }
+            else
+                NextWeek = new Week(NextWeekBorders);
+        }
+        public async Task InsertWeek(Week week)
+        {
+            await db_Operator.InsertDays(week);
         }
         private void GetDaysFromDB()
         {
@@ -71,10 +112,10 @@ namespace FoodCalculator.Stores
         }
         private async Task<IEnumerable<Day>> GetDaysFromDBAsync()
         {
-            return await db_Operator.GetDays(Meals);
+            return await db_Operator.GetAllDays(Meals);
             
         }
-        public async Task UpdateSettingsInDB()
+        public async Task UpdateSettingsInDBAsync()
         {
             await db_Operator.UpdateSettings(DayTemplates.ToList());
         }

@@ -22,6 +22,8 @@ namespace FoodCalculator.ViewModels
         public ICommand SaveWeekCommand { get; set; }
         public ICommand ShowCurrentWeekCommand { get; set; }
         public ICommand ShowNextWeekCommand { get; set; }
+        public ICommand CancelCalculationCommand { get; set; }
+        public ObservableCollection<bool> weeks { get; set; } = new ObservableCollection<bool> { true, false }; 
 
 
         //
@@ -30,19 +32,19 @@ namespace FoodCalculator.ViewModels
         //index 3-5 is for day 2 etc
         public ObservableCollection<string> MealFillings { get; set; } = new ObservableCollection<string>();
         public Week WeekForDisplaying { get; set; } 
-        private Week CurrentWeek { get; set; } = new Week(); 
-        private Week NextWeek { get; set; } = new Week();
+        private Week CurrentWeek { get; set; } 
+        private Week NextWeek { get; set; }
         public CalculatorViewModel(NavigationStore navigationStore,DataStore dataStore) 
         {
-            WeekForDisplaying = new Week();
-            CurrentWeek = new Week(curwek(0));
-            NextWeek = new Week(curwek(1));
+            DataStore = dataStore;
+            WeekForDisplaying = new Week(Algorithms.WeekBorders(0));
+            CurrentWeek = dataStore.CurrentWeek;
+            NextWeek = dataStore.NextWeek;
             WeekForDisplaying.equate(CurrentWeek);
             NavigationStore = navigationStore;
-            DataStore = dataStore;            
-            NavigateToSettings = new NavigateCommand<SettingsViewModel>(NavigationStore, () =>new SettingsViewModel(NavigationStore, DataStore));
+            NavigateToSettings = new NavigateCommand<SettingsViewModel>(NavigationStore, () => new SettingsViewModel(NavigationStore, DataStore));
             NavigateToAddFood = new NavigateCommand<AddFoodViewModel>(NavigationStore,()=> new AddFoodViewModel(NavigationStore,DataStore));
-            Calculator = new Calculator(NextWeek, DataStore.GetFoodList(), DataStore.DayTemplates, dataStore.GetFoodTypes());
+            Calculator = new Calculator(WeekForDisplaying, DataStore.GetFoodList(), DataStore.DayTemplates, dataStore.GetFoodTypes());
             CalculateFoodCommand = new ButtonCommand(obj => 
             {
                 Calculator.Calculate();                
@@ -50,28 +52,33 @@ namespace FoodCalculator.ViewModels
             });
             ShowNextWeekCommand = new ButtonCommand(obj =>
             {
-                WeekForDisplaying.equate(NextWeek);
-                Calculator = new Calculator(WeekForDisplaying, DataStore.GetFoodList(), DataStore.DayTemplates, dataStore.GetFoodTypes());
+                if (weeks[1] == false)
+                {
+                    weeks[0] = false; weeks[1] = true;
+                    CurrentWeek.equate(WeekForDisplaying);
+                    WeekForDisplaying.equate(NextWeek);
+                    Calculator = new Calculator(WeekForDisplaying, DataStore.GetFoodList(), DataStore.DayTemplates, dataStore.GetFoodTypes());
+                }
 
             });
             ShowCurrentWeekCommand = new ButtonCommand(obj => 
             {
-                WeekForDisplaying.equate(CurrentWeek);
-                Calculator = new Calculator(WeekForDisplaying, DataStore.GetFoodList(), DataStore.DayTemplates, dataStore.GetFoodTypes());
+                if (weeks[0] == false)
+                {
+                    weeks[0] = true; weeks[1] = false;
+                    NextWeek.equate(WeekForDisplaying);
+                    WeekForDisplaying.equate(CurrentWeek);
+                    Calculator = new Calculator(WeekForDisplaying, DataStore.GetFoodList(), DataStore.DayTemplates, dataStore.GetFoodTypes());
+                }
             });
-        }
-        
-        
-        (DateOnly, DateOnly) curwek(int offset)//offset in weeks
-        {
-            int day = Convert.ToInt32(DateTime.Now.DayOfWeek);
-            DateOnly fd = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            fd = fd.AddDays(-day + 1 + 7 * offset);
-            DateOnly sd = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            sd = sd.AddDays(7 - day + 7 * offset);
-
-
-            return (fd, sd);
+            CancelCalculationCommand = new ButtonCommand(obj =>
+            {
+                
+            });
+            SaveWeekCommand = new ButtonCommand(obj =>
+            {
+                DataStore.InsertWeek(WeekForDisplaying);
+            });
         }
     }
 }

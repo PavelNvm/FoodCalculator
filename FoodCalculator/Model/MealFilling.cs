@@ -21,10 +21,11 @@ namespace FoodCalculator.Model
         private List<Food> _foodList = new();
         public string OutputValue { get { return _outputValue; }set { _outputValue = value;OnPropertyChanged(nameof(OutputValue)); } }
         private string _outputValue;
-        public int Day_Id { get; set; }
-        public MealFilling(string type) 
+        public string Day_Date { get; set; }
+        public MealFilling(string type,string day_date) 
         {
             Type=type;
+            Day_Date = day_date;
             UpdateOutputValue();
         }
         public void UpdateOutputValue()
@@ -97,7 +98,7 @@ namespace FoodCalculator.Model
         public void equate(MealFilling mealFilling)
         {
             Id = mealFilling.Id;
-            Day_Id = mealFilling.Day_Id;            
+            Day_Date = mealFilling.Day_Date;            
             FoodList.Clear();
             foreach (Food food in mealFilling.FoodList)
             {

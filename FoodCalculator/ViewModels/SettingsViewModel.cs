@@ -32,9 +32,9 @@ namespace FoodCalculator.ViewModels
         private bool _isclipboard = false;
         public ObservableCollection<bool> IsDaySelected { get; set; } = new ObservableCollection<bool>() { true, false, false, false, false, false, false };
         public int SelectedDayIndex { get; set; }
-        public int BreakfastFoodQuantity { get { return DayForDisplaying.Breakfast.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Breakfast); OnPropertyChanged(nameof(BreakfastFoodQuantity));DataStore.UpdateSettingsInDB();  } } }
-        public int LunchFoodQuantity { get { return DayForDisplaying.Lunch.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Lunch);             OnPropertyChanged(nameof(LunchFoodQuantity));    DataStore.UpdateSettingsInDB();  } } }
-        public int DinnerFoodQuantity { get { return DayForDisplaying.Dinner.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Dinner);          OnPropertyChanged(nameof(DinnerFoodQuantity));   DataStore.UpdateSettingsInDB();  } } }
+        public int BreakfastFoodQuantity { get { return DayForDisplaying.Breakfast.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Breakfast); OnPropertyChanged(nameof(BreakfastFoodQuantity));  } } }
+        public int LunchFoodQuantity { get { return DayForDisplaying.Lunch.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Lunch);             OnPropertyChanged(nameof(LunchFoodQuantity));      } } }
+        public int DinnerFoodQuantity { get { return DayForDisplaying.Dinner.Count(); } set { if (value > 0 && value <= 6) { ChangeFoodquant(value, DayForDisplaying.Dinner);          OnPropertyChanged(nameof(DinnerFoodQuantity));     } } }
         public string NewFoodType { get { return _newFoodType; } set { _newFoodType = value; OnPropertyChanged(nameof(NewFoodType)); } }
         private string _newFoodType;       
 
@@ -51,7 +51,8 @@ namespace FoodCalculator.ViewModels
 
             SaveAndNavigateCommand = new ButtonCommand(obj =>
             {
-                DayTemplates[SelectedDayIndex].equate(DayForDisplaying);
+                
+                RecordAndSaveDayInSettings();  
                 NavigateToCalculator.Execute(null);
             });
 
@@ -105,11 +106,12 @@ namespace FoodCalculator.ViewModels
                 NewFoodType = "";
             });
             RemoveType = new ButtonCommand(obj =>
-            {                
+            {
+                var task = dataStore.RemoveFoodTypeFromDBAsync((string)obj);
                 FoodTypes.Remove((string)obj);
             });
         }       
-        public void ChangeFoodquant(int quant, ObservableCollection<StringWrapper> FL)
+        private void ChangeFoodquant(int quant, ObservableCollection<StringWrapper> FL)
         {
             while (FL.Count != quant)
             {
@@ -119,9 +121,19 @@ namespace FoodCalculator.ViewModels
                 }
                 else
                 {
-                    FL.Add(new StringWrapper(FoodTypes[0]));
+                    if (FoodTypes.Count > 0)
+                        FL.Add(new StringWrapper(FoodTypes[0]));
+                    else
+                        FL.Add(new StringWrapper(""));
                 }
             }
+            
+        }
+        private void RecordAndSaveDayInSettings()
+        {
+            DayTemplates[SelectedDayIndex].equate(DayForDisplaying);
+            DataStore.DayTemplates = DayTemplates;
+            DataStore.UpdateSettingsInDBAsync();
         }
         
         private void UpdateQuantity()

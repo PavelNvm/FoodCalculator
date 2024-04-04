@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:FoodCalculator.Converters"
              xmlns:local="clr-namespace:FoodCalculator.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="White">
     <UserControl.Resources>
+        <converter:BoolToBackgroundColorConverter x:Key="BoolToBackgroundConverter"/>
         <Style TargetType="TextBox">
             <Setter Property="TextWrapping" Value="Wrap"></Setter>
             <Setter Property="IsReadOnly" Value="True"></Setter>
@@ -98,11 +100,12 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Grid.Row="0" Content="Current Week" Command="{Binding  Path=ShowCurrentWeekCommand}"/>
-            <Button Grid.Column="4" Grid.Row="0" Content="Next Week" Command="{Binding  Path=ShowNextWeekCommand}"/>
+            <Button Grid.Column="0" Grid.Row="0" Content="Current Week" Command="{Binding  Path=ShowCurrentWeekCommand}" CommandParameter="0" Background="{Binding Path=weeks[0],Converter={StaticResource BoolToBackgroundConverter}}" />
+            <Button Grid.Column="4" Grid.Row="0" Content="Next Week" Command="{Binding  Path=ShowNextWeekCommand}"       CommandParameter="1" Background="{Binding Path=weeks[1],Converter={StaticResource BoolToBackgroundConverter}}" />
         </Grid>
         <Button Grid.Column="4" Grid.Row="2" Content="Calculate Food" Command="{Binding  Path=CalculateFoodCommand}"/>
         <Button Grid.Column="4" Grid.Row="3" Content="Save Week" Command="{Binding  Path=SaveWeekCommand}"/>
+        <!--<Button Grid.Column="4" Grid.Row="4" Content="Cancel Calculation" Command="{Binding  Path=CancelCalculationCommand}"/>-->
         <Button Grid.Column="4" Grid.Row="6" Content="Change Food List" Command="{Binding  Path=NavigateToAddFood}"/>
         <Button Grid.Column="4" Grid.Row="7" Content="Settings" Command="{Binding  Path=NavigateToSettings}"/>
         
